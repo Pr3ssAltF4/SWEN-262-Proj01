@@ -1,35 +1,48 @@
 package model;
 
 import java.util.ArrayList;
-
-import model.holding.*;
+import model.holding.Equity;
 
 
 public class Portfolio{ 
 	public String name;
-	private ArrayList<Equity> holdings;
+	private ArrayList<Equity> equities;
 	private CashAccount cashAccount;
-	
+	//private User user
+
+	//Portfolio constructor
 	public Portfolio(String name){
 		this.name = name;
-		this.holdings = new ArrayList<Equity>();
+		this.equities = new ArrayList<Equity>();
 		this.cashAccount = new CashAccount(0);
 	}
 
-	public ArrayList<Equity> getHoldings() {
-		return holdings;
+	/*
+	Equities (aka Equity)
+	 */
+	public ArrayList<Equity> getEquities() {
+		return equities;
 	}
 
+	/*
+	Returns the name
+	 */
 	public String getName(){
 		return name;
 	}
-	
-	public void addHolding(Equity holding){
-		holdings.add(holding);
+
+	/*
+	Adds and Equity to the Portfilio given the equity
+	 */
+	public void addEquity(Equity equity){
+		equities.add(equity);
 	}
-	
-	public void removeHolding(Equity holding){
-		holdings.remove(holding);
+
+	/*
+	Removes the Equity given the Equity
+	 */
+	public void removeEquity(Equity equity){
+		equities.remove(equity);
 	}
 	
 	
