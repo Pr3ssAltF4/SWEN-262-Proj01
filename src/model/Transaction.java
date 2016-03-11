@@ -1,7 +1,7 @@
-package models;
+package model;
 
 import java.util.ArrayList;
-import models; // Needs to change
+//import models; // Needs to change
 
 public class Transaction {
 

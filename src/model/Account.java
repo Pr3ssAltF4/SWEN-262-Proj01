@@ -1,7 +1,7 @@
-package models;
+package model;
 
 import java.util.ArrayList;
-import model; // Again, this needs to change because design and visibilty actually matters
+//import model; // Again, this needs to change because design and visibilty actually matters
 
 public class Account {
 
@@ -10,9 +10,9 @@ public class Account {
     private int amount;
 
     public Account(String name, int id, int amount) {
-	this.id = id;
-	this.name = name;
-	this.amount = amount;
+        this.id = id;
+        this.name = name;
+        this.amount = amount;
     }
 
     public int getId() { return id; }

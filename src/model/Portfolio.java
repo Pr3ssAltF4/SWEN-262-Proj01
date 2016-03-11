@@ -1,20 +1,17 @@
 package model;
 
 import java.util.ArrayList;
-import model.holding.Equity;
-
 
 public class Portfolio{ 
-	public String name;
+	private String name;
 	private ArrayList<Equity> equities;
-	private CashAccount cashAccount;
-	//private User user
+	private int id;
 
 	//Portfolio constructor
-	public Portfolio(String name){
+	public Portfolio(String name, int id){
 		this.name = name;
-		this.equities = new ArrayList<Equity>();
-		this.cashAccount = new CashAccount(0);
+		this.equities = new ArrayList<>();
+		this.id = id;
 	}
 
 	/*
@@ -34,10 +31,16 @@ public class Portfolio{
 	/*
 	Adds and Equity to the Portfilio given the equity
 	 */
-	public void addEquity(Equity equity){
-		equities.add(equity);
+	public void addEquity(String ticker, int shares, double price){
+        Equity equity = new Equity(ticker, shares, price);
+        equities.add(equity);
 	}
 
+    public void addEquity(String ticker, int shares, double price, boolean cash){
+        if (cash){
+            
+        }
+    }
 	/*
 	Removes the Equity given the Equity
 	 */
