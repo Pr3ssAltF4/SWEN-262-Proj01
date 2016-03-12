@@ -1,14 +1,15 @@
-package model.holding;
- import java.util.Date;
+package model;
+
+import java.util.Date;
 
     /*
 	Equity (aka Holdings)
 	 */
 public class Equity{
-        private String ticker = "";
-        private int numberOfStocks = 0;
-        private double pricePerStock = 0.0;
-        private Date dateAquired = Date();
+        private String ticker;
+        private int numberOfStocks;
+        private double pricePerStock;
+        private Date dateAcquired;
 
         /*
         A constructor for the Equity class
@@ -17,6 +18,7 @@ public class Equity{
             this.ticker = ticker;
             this.numberOfStocks = numberOfStocks;
             this.pricePerStock = pricePerStock;
+            this.dateAcquired = new Date();
         }
 
         /*
@@ -62,16 +64,9 @@ public class Equity{
         }
 
         /*
-        Get teh date aquired
+        Get the date aquired
          */
         public Date getDateAquired() {
-            return dateAquired;
-        }
-
-        /*
-        Set the date aquired
-         */
-        public void setDateAquired(Date dateAquired) {
-            this.dateAquired = dateAquired;
+            return dateAcquired;
         }
     }
