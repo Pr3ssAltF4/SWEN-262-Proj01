@@ -41,7 +41,13 @@ public class User {
         return total;
     }
 
-
+    /** NEED TO ADD TRANSACTION
+     *
+     * @param ticker - ticker symbol for equity
+     * @param shares - amount of equity you want to purchase
+     * @param price - price per equity
+     * @param useCash -
+     */
     public void buyEquity(String ticker, int shares, double price, boolean useCash){
         if (useCash){
             double cost = shares * price;
@@ -51,7 +57,7 @@ public class User {
             if (canPurchase.isEmpty()){
                 System.out.println("You do not have enough cash to purchase these equities");
             } else {
-                canPurchase.get(0).withdraw(cost);
+                canPurchase.get(0).withdraw(cost);//put in first index until controllers handles this
                 this.portfolio.addEquity(ticker, shares, price);
             }
         } else {
@@ -59,6 +65,15 @@ public class User {
         }
     }
 
+    public void removeEquity(String ticker, int shares, double price, boolean toCash){
+        if (toCash){
+            double earned = shares * price;
+            //Allow users to select what account they want to put the cash in
+            accounts.get(0).deposit(earned); //put in first index until controller handles this
+            ArrayList<Equity> toRemove = this.portfolio.getEquityByTicker(ticker);
+
+        }
+    }
 
     /**
      *

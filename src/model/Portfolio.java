@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class Portfolio{ 
 	private String name;
@@ -43,5 +44,27 @@ public class Portfolio{
 		equities.remove(equity);
 	}
 
-	
+	public ArrayList<Equity> getEquityByTicker(String ticker){
+        ArrayList<Equity> filtered = new ArrayList<>();
+        Equity current;
+        for (int i = 0; i < getEquities().size(); i++){
+            current = this.getEquities().get(i);
+            if (current.getTicker() == ticker){
+                filtered.add(current);
+            }
+        }
+        return filtered;
+	}
+
+    public int getShares(String ticker){
+        int shares = 0;
+        Equity current;
+        for (int i = 0; i < getEquities().size(); i++){
+            current = this.getEquities().get(i);
+            if (current.getTicker() == ticker){
+                shares += current.getNumberOfStocks();
+            }
+        }
+        return shares;
+    }
 }
