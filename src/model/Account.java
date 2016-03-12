@@ -19,7 +19,7 @@ public class Account {
     public int getAmount() { return amount; }
     public String getName() { return name; }
     // withdraws money from the account. Returns amount left.
-    public int withdraw(int withdrawal) {
+    public double withdraw(int withdrawal) {
 	if(this.amount - withdrawal >= 0)
 	    return this.amount -= withdrawal; // don't remember if this works in java lol. I may or may not
 	// be drunk coding right now...

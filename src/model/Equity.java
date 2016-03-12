@@ -69,11 +69,4 @@ public class Equity{
         public Date getDateAquired() {
             return dateAcquired;
         }
-
-        /*
-        Set the date aquired
-         */
-        public void setDateAquired(Date dateAquired) {
-            this.dateAcquired = dateAquired;
-        }
     }

@@ -23,7 +23,7 @@ public class Portfolio{
 
 	/*
 	Returns the name
-	 */
+	*/
 	public String getName(){
 		return name;
 	}
@@ -36,17 +36,12 @@ public class Portfolio{
         equities.add(equity);
 	}
 
-    public void addEquity(String ticker, int shares, double price, boolean cash){
-        if (cash){
-            
-        }
-    }
 	/*
 	Removes the Equity given the Equity
 	 */
 	public void removeEquity(Equity equity){
 		equities.remove(equity);
 	}
-	
+
 	
 }

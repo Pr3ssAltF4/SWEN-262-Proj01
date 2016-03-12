@@ -12,4 +12,6 @@ public class Transaction {
     }
 
     public int getId() { return this.id; }
+
+
 }

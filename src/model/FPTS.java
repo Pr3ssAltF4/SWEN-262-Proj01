@@ -12,8 +12,7 @@ public class FPTS {
     public static void main(String[] args) {
 
         HashMap<String, Double> tickerprice = getTickerPrice("src/model/equities.csv");
-
-
+        System.out.println(tickerprice);
     }
 
     private static HashMap<String, Double> getTickerPrice(String path){
