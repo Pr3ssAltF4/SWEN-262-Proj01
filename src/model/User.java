@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import src.model.Account; // This needs to change. Visibility and such actually matters.
 import src.model.Transaction;
 import src.model.Portfolio;
+import src.util.IdGenorator;
 
 public class User {
     private int id;
@@ -14,11 +15,11 @@ public class User {
     public Portfolio portfolio;
 
     // ctor
-    public User(String username, String name, int id) {
-        this.id = id;
+    public User(String username, String name) {
+        this.id = IdGenorator.getInstance().getNewId();
         this.username = username;
         this.name = name;
-        this.portfolio = new Portfolio(name, id, this);
+        this.portfolio = new Portfolio(name, IdGenorator.getInstance().getNewId(), this);
     }
 
     public String getPassword() {
@@ -33,6 +34,14 @@ public class User {
     public String getUsername() { return username; }
 
     public int getId() { return id; }
+
+    public Portfolio getPortfolio() {
+        return portfolio;
+    }
+
+    public String getName() {
+        return name;
+    }
 
     /**
      *
@@ -51,6 +60,6 @@ public class User {
     }
 
     public String exportUser(){
-        return "" + username + "," + name + "," + id + "," + password;
+        return "" + username + "," + name + "," +id +","+ password;
     }
 }

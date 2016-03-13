@@ -86,7 +86,7 @@ public class Equity{
         }
 
         //Should be in this formate "Ticker,numberOfSticks,pricePerStock,Date"
-        public Equity importEquity(String line){
+        public static Equity importEquity(String line){
             String[] args = line.split(",");
             String[] date =  args[3].split(" ");
             Equity equity = new Equity(args[0],Integer.parseInt(args[1]),Double.parseDouble(args[2]));

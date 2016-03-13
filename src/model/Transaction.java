@@ -17,4 +17,8 @@ public class Transaction {
         return ""+ id;
     }
 
+    public static Transaction importTransaction(String line) {
+        String[] args = line.split(",");
+        return new Transaction(Integer.parseInt(args[0]));
+    }
 }

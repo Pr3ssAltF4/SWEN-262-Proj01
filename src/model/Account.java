@@ -1,5 +1,7 @@
 package src.model;
 
+import src.util.IdGenorator;
+
 import java.util.Date;
 
 public class Account {
@@ -41,5 +43,10 @@ public class Account {
 
     public String exportAccount() {
         return "" + id + "," + name + "," + balance;
+    }
+
+    public static Account importAccount(String line) {
+        String[] args = line.split(",");
+        return new Account(args[1], IdGenorator.getInstance().getNewId(), Double.parseDouble(args[2]));
     }
 }

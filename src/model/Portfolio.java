@@ -30,14 +30,6 @@ public class Portfolio {
         this.accounts = new ArrayList<>();
     }
 
-    public Portfolio(String name, int id) {
-        this.name = name;
-        this.equities = new ArrayList<>();
-        this.id = id;
-        this.transaction_history = new ArrayList<>();
-        this.accounts = new ArrayList<>();
-    }
-
 //    public Portfolio(String fileName) {
 //        importPortfolio(fileName);
 //    }
@@ -70,6 +62,10 @@ public class Portfolio {
      */
     public void addEquity(String ticker, int shares, double price) {
         Equity equity = new Equity(ticker, shares, price);
+        equities.add(equity);
+    }
+
+    private void addEquity(Equity equity) {
         equities.add(equity);
     }
 
@@ -108,9 +104,8 @@ public class Portfolio {
         return shares;
     }
 
-	public void addTransaction(Transaction transaction) {transaction_history.add(transaction);}
-
-	//removes the transaction from the transaction history based on the id
+    public void addTransaction(Transaction transaction) {transaction_history.add(transaction);}
+    //removes the transaction from the transaction history based on the id
 	public void removeTransaction(int transaction_id) {
 
 		for(int x = 0; x < transaction_history.size(); x++){
@@ -120,9 +115,14 @@ public class Portfolio {
 			}
 		}
 	}
-	public void addAccount(String name, double balance) {
+    public void addAccount(String name, double balance) {
 		accounts.add(new Account(name, this.id, balance));
 	}
+
+    private void addAccount(Account account) {
+        accounts.add(account);
+    }
+
 	public void removeAccount(String name) {
 		for (Account a: this.accounts){
 			if (a.getName() == name){
@@ -204,10 +204,10 @@ Exports a portfolio and returns true if successful
     public boolean exportPortfolio() {
         try {
             PrintWriter writer = new PrintWriter("exports/" + name + "-" + id + ".txt", "UTF-8");
-            String export = id + "," + name + "," + equities.size() + "," + accounts.size()
+            writer.println(user.exportUser());
+            String export = "" + equities.size() + "," + accounts.size()
                     + "," + transaction_history.size();
             writer.println(export);
-            writer.println(user.exportUser());
             for (Equity equity : equities) {
                 writer.println(equity.exportEquity());
             }
@@ -234,20 +234,40 @@ Exports a portfolio and returns true if successful
             String[] args;
             int[] sizes = new int[2];
 
-            while (scanner.hasNextLine())
+            while (scanner.hasNextLine()) {
                 if (state == 0) {
+                    //imports user and start on portfolio
                     args = scanner.nextLine().split(",");
-                    int portfolioId = Integer.parseInt(args[0]);
-                    String name = args[1];
-                    sizes[0] = Integer.parseInt(args[2]);
-                    sizes[1] = Integer.parseInt(args[3]);
-                    sizes[2] = Integer.parseInt(args[4]);
+                    User user = new User(args[0], args[1]);
+                    user.setPassword(args[3]);
+                    //find the number of each array
                     args = scanner.nextLine().split(",");
-                    User user = new User(args[0], args[1], args[2], IdGenorator.getInstance().getNewId());
+                    sizes[0] = Integer.parseInt(args[0]);
+                    sizes[1] = Integer.parseInt(args[1]);
+                    sizes[2] = Integer.parseInt(args[2]);
+
+                    state = 1;
                 }
+                Portfolio portfolio = user.getPortfolio();
+                //Equities loop
+                for(int x = 0; x < sizes[0] && scanner.hasNextLine() ; x++){
+                    portfolio.addEquity(Equity.importEquity(scanner.nextLine()));
+                }
+                //Transaction loop
+                for(int x = 0; x < sizes[1] && scanner.hasNextLine() ; x++){
+                    portfolio.addTransaction(Transaction.importTransaction(scanner.nextLine()));
+                }
+                for(int x = 0; x < sizes[2] && scanner.hasNextLine() ; x++){
+                    portfolio.addAccount(Account.importAccount(scanner.nextLine()));
+                }
+
+                return portfolio;
+
+            }
 
         } catch (Exception ex) {
             System.out.println("Could not import Portfolio:>>" + ex.getMessage());
+            return null;
         }
 
         return null;
