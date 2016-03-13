@@ -29,13 +29,6 @@ public class Equity{
         }
 
         /*
-        Sets a Ticker
-         */
-        public void setTicker(String ticker) {
-            this.ticker = ticker;
-        }
-
-        /*
         Returns the number of a given stock
          */
         public int getNumberOfStocks() {
@@ -54,13 +47,6 @@ public class Equity{
          */
         public double getPricePerStock() {
             return pricePerStock;
-        }
-
-        /*
-        Set the prive for the stock
-         */
-        public void setPricePerStock(double pricePerStock) {
-            this.pricePerStock = pricePerStock;
         }
 
         /*
