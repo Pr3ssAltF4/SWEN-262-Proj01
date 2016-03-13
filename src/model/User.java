@@ -18,8 +18,8 @@ public class User {
         this.username = username;
         this.name = name;
         this.accounts = new ArrayList<>();
-        this.transaction_history = new ArrayList<Transaction>();
-        this.portfolio = new Portfolio(name, id);
+        this.transaction_history = new ArrayList<>();
+        this.portfolio = new Portfolio(name, id, this);
     }
 
     // Some method stubs
@@ -54,7 +54,7 @@ public class User {
         double total = 0;
         ArrayList<Account> accounts =  this.getAccounts();
         for (int i = 0; i < accounts.size(); i++){
-            total += accounts.get(i).getAmount();
+            total += accounts.get(i).getBalance();
         }
         return total;
     }
@@ -87,7 +87,7 @@ public class User {
     public ArrayList<Account> canPurchase(double cost, ArrayList<Account> accounts){
         ArrayList<Account> canPurchase = new ArrayList<>();
         for (int i = 0; i < accounts.size(); i++){
-            if (accounts.get(i).getAmount() >= cost){
+            if (accounts.get(i).getBalance() >= cost){
                 canPurchase.add(accounts.get(i));
             }
         }
