@@ -2,6 +2,7 @@ package model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 class TestPortfolio {
@@ -18,5 +19,7 @@ class TestPortfolio {
 
         }
 
+        Calendar dates = Calendar.getInstance();
+        System.out.println(dates.getTime());
     }
 }
