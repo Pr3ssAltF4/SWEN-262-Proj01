@@ -21,7 +21,6 @@ public class User {
         this.portfolio = new Portfolio(name, id, this);
     }
 
-<<<<<<< HEAD
     public String getPassword() {
         return password;
     }
@@ -30,14 +29,11 @@ public class User {
         this.password = password;
     }
 
-=======
->>>>>>> origin/master
     // Some method stubs
     public String getUsername() { return username; }
 
     public int getId() { return id; }
 
-<<<<<<< HEAD
     /**
      *
      * @param cost - cost of equities
@@ -57,7 +53,4 @@ public class User {
     public String exportUser(){
         return "" + username + "," + name + "," + id + "," + password;
     }
-=======
-
->>>>>>> origin/master
 }
