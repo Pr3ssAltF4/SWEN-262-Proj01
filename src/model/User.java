@@ -24,9 +24,27 @@ public class User {
 
     // Some method stubs
     public String getUsername() { return username; }
-    public void addTransaction(Transaction transaction) {}
-    public void removeTransaction(int transaction_id) {}
-    public void addAccount(Account account) {}
+
+    //Add the given transaction to the arraylist transaction history
+    public void addTransaction(Transaction transaction) {
+        transaction_history.add(transaction);
+    }
+
+    //removes the transaction from the transaction history based on the id
+    public void removeTransaction(int transaction_id) {
+        for(int x = 0; x < transaction_history.size(); x++){
+            if(transaction_history.get(x).getId() == transaction_id) {
+                transaction_history.remove(x);
+                return;
+            }
+        }
+    }
+
+    //Adds an account to the list of accounts
+    public void addAccount(Account account) {
+        accounts.add(account);
+    }
+
     public ArrayList<Account> getAccounts() { return this.accounts;}
     public void removeAccount(int account_id) {}
     public int getId() { return id; }

@@ -1,5 +1,7 @@
 package model;
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Portfolio{ 
@@ -43,5 +45,32 @@ public class Portfolio{
 		equities.remove(equity);
 	}
 
+	/*
+	Exports a portfolio and returns true if successful
+	 */
+	public boolean exportPortfolio(){
+		try {
+			PrintWriter writer = new PrintWriter("exports/"+name + "-" + id + ".txt", "UTF-8");
+			String export = id +"," + name;
+			writer.println(export);
+			for(Equity equity : equities){
+				writer.println(equity.exportEquity());
+			}
+			writer.close();
+		}catch(Exception ex){
+			System.out.println("Unable to export files:" + ex.getMessage());
+			return false;
+		}
+
+		return true;
+	}
+
+	/*
+	Importing links to keep around
+
+	https://dzone.com/articles/java-example-list-all-files
+
+	https://docs.oracle.com/javase/tutorial/essential/io/dirs.html
+	 */
 	
 }

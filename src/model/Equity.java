@@ -1,15 +1,23 @@
 package model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
     /*
 	Equity (aka Holdings)
 	 */
 public class Equity{
+
+        //Here to be used to put date to string.
+        static DateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
         private String ticker;
         private int numberOfStocks;
         private double pricePerStock;
-        private Date dateAcquired;
+
+
+        Date date = new Date();
+        private Date dateAcquired = date;
 
         /*
         A constructor for the Equity class
@@ -68,5 +76,22 @@ public class Equity{
          */
         public Date getDateAquired() {
             return dateAcquired;
+        }
+
+        /*
+        Sets the DateAcquired
+         */
+        public void setDateAcquired(Date dateAcquired) {
+            this.dateAcquired = dateAcquired;
+        }
+
+        public String exportEquity(){
+            String export = "";
+            export += ticker + ",";
+            export += numberOfStocks + ",";
+            export += pricePerStock + ",";
+            export += dateFormat.format(dateAcquired);
+
+            return export;
         }
     }
