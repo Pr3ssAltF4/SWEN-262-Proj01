@@ -1,17 +1,19 @@
 package model;
 
-
+import java.util.Date;
 
 public class Account {
 
     private int id;
     public String name;
     private double balance;
+    public Date dateCreated;
 
     public Account(String name, int id, double balance) {
         this.id = id;
         this.name = name;
         this.balance = balance;
+        this.dateCreated = new Date();
     }
 
     public int getId() { return id; }
@@ -32,5 +34,8 @@ public class Account {
         this.balance += deposit;
         return this.balance;
     }
-    
+
+    public Date getDateCreated(){
+        return dateCreated;
+    }
 }

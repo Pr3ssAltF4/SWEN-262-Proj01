@@ -1,9 +1,7 @@
 package model;
 
-import java.io.File;
+
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Portfolio{
@@ -83,44 +81,56 @@ public class Portfolio{
 	
 	public ArrayList<Equity> getEquityByTicker(String ticker){
         ArrayList<Equity> filtered = new ArrayList<>();
-        Equity current;
-        for (int i = 0; i < getEquities().size(); i++){
-            current = this.getEquities().get(i);
-            if (current.getTicker() == ticker){
-                filtered.add(current);
-            }
-        }
+		for (Equity e: this.equities){
+			if (e.getTicker() == ticker){
+				filtered.add(e);
+			}
+		}
         return filtered;
 	}
 
     public int getShares(String ticker){
         int shares = 0;
-        Equity current;
-        for (int i = 0; i < getEquities().size(); i++){
-            current = this.getEquities().get(i);
-            if (current.getTicker() == ticker){
-                shares += current.getNumberOfStocks();
-            }
-        }
+		for (Equity e: this.equities){
+			if (e.getTicker() == ticker){
+				shares += e.getNumberOfStocks();
+			}
+		}
         return shares;
     }
 
 
-	public void addTransaction(Transaction transaction) {}
-	public void removeTransaction(int transaction_id) {}
-	public void addAccount(Account account) {}
-	public void removeAccount(int account_id) {}
+	public void addTransaction(Transaction transaction) {transaction_history.add(transaction);}
+
+	//removes the transaction from the transaction history based on the id
+	public void removeTransaction(int transaction_id) {
+
+		for(int x = 0; x < transaction_history.size(); x++){
+			if(transaction_history.get(x).getId() == transaction_id) {
+				transaction_history.remove(x);
+				return;
+			}
+		}
+	}
+	public void addAccount(String name, double balance) {
+		accounts.add(new Account(name, this.id, balance));
+	}
+	public void removeAccount(String name) {
+		for (Account a: this.accounts){
+			if (a.getName() == name){
+				accounts.remove(a);
+			}
+		}
+	}
 
 	//returns total cash from all accounts
 	public double evalCash(){
 		double total = 0;
-		ArrayList<Account> accounts =  this.accounts;
-		for (int i = 0; i < accounts.size(); i++){
-			total += accounts.get(i).getBalance();
+		for (Account a: this.accounts){
+			total += a.getBalance();
 		}
 		return total;
 	}
-
 
 
 	/** NEED TO ADD TRANSACTION
@@ -147,11 +157,10 @@ public class Portfolio{
 		}
 	}
 
-	public void removeEquity(String ticker, int shares, double price, boolean toCash){
+	public void removeEquity(String ticker, int shares, double price, boolean toCash, int... id){
 		if (toCash){
 			double earned = shares * price;
-			//Allow users to select what account they want to put the cash in
-			accounts.get(0).deposit(earned); //put in first index until controller handles this
+			accounts.get(0).deposit(earned);
 			ArrayList<Equity> toRemove = getEquityByTicker(ticker);
 		}
 	}
@@ -164,11 +173,20 @@ public class Portfolio{
 	 */
 	public ArrayList<Account> canPurchase(double cost, ArrayList<Account> accounts){
 		ArrayList<Account> canPurchase = new ArrayList<>();
-		for (int i = 0; i < accounts.size(); i++){
-			if (accounts.get(i).getBalance() >= cost){
-				canPurchase.add(accounts.get(i));
+		for (Account a: this.accounts){
+			if (a.getBalance() >= cost){
+				canPurchase.add(a);
 			}
 		}
 		return canPurchase;
+	}
+
+	public void depostitByname(String name, double ammount){
+		for(Account a: this.accounts){
+			if (a.getName() == name){
+				a.deposit(ammount);
+				break;
+			}
+		}
 	}
 }
