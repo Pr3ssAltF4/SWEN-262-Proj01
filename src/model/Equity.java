@@ -1,4 +1,4 @@
-package model;
+package src.model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -57,9 +57,13 @@ public class Equity{
             return pricePerStock;
         }
 
+        public void setPricePerStock(double pricePerStock) {
+            this.pricePerStock = pricePerStock;
+        }
+
         /*
-        Get the date aquired
-         */
+                Get the date aquired
+                 */
         public Date getDateAquired() {
             return dateAcquired;
         }
@@ -79,5 +83,18 @@ public class Equity{
             export += dateFormat.format(dateAcquired);
 
             return export;
+        }
+
+        //Should be in this formate "Ticker,numberOfSticks,pricePerStock,Date"
+        public Equity importEquity(String line){
+            String[] args = line.split(",");
+            String[] date =  args[3].split(" ");
+            Equity equity = new Equity(args[0],Integer.parseInt(args[1]),Double.parseDouble(args[2]));
+            try {
+                equity.setDateAcquired(dateFormat.parse(args[3]));
+            }catch(Exception ex){
+                System.out.println("Could not import date:>>"+ex.getMessage());
+            }
+            return equity;
         }
     }

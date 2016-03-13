@@ -8,7 +8,15 @@ class TestPortfolio {
     public static void main(String args[]) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
         Date date = new Date();
-        System.out.println(dateFormat.format(date));
+        String dateString = dateFormat.format(date);
+        System.out.println(dateString);
+        try {
+            date = dateFormat.parse(dateString);
+            dateString = dateFormat.format(date);
+            System.out.println(dateString);
+        }catch(Exception ex){
+
+        }
 
     }
 }

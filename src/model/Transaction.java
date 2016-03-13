@@ -1,4 +1,4 @@
-package model;
+package src.model;
 
 import java.util.ArrayList;
 //import models; // Needs to change
@@ -13,5 +13,8 @@ public class Transaction {
 
     public int getId() { return this.id; }
 
+    public String exportTransaction(){
+        return ""+ id;
+    }
 
 }

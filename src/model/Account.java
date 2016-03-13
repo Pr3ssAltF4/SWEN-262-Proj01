@@ -1,4 +1,4 @@
-package model;
+package src.model;
 
 
 
@@ -32,5 +32,8 @@ public class Account {
         this.balance += deposit;
         return this.balance;
     }
-    
+
+    public String exportAccount() {
+        return "" + id + "," + name + "," + balance;
+    }
 }

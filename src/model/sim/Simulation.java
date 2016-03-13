@@ -1,7 +1,7 @@
-package model.sim;
+package src.model.sim;
 
 
-import model.Equity;
+import src.model.Equity;
 
 import java.util.ArrayList;
 

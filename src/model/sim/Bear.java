@@ -1,4 +1,4 @@
-package model.sim;
+package src.model.sim;
 
 public class Bear extends Simulation {
 
