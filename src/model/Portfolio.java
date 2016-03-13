@@ -1,6 +1,7 @@
 package src.model;
 
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -9,6 +10,7 @@ import src.model.Transaction;
 import src.model.Equity;
 import src.model.User;
 import src.model.Account;
+import src.util.IdGenorator;
 
 public class Portfolio {
     private String name;
@@ -224,30 +226,30 @@ Exports a portfolio and returns true if successful
         return true;
     }
 
-//    public Portfolio importPortfolio(String fileName) {
-//        File file = new File("exports/" + fileName);
-//        try {
-//            Scanner scanner = new Scanner(file);
-//            int state = 0;
-//            String[] args;
-//            int[] sizes = new int[2];
-//
-//            while (scanner.hasNextLine())
-//                if (state == 0) {
-//                    args = scanner.nextLine().split(",");
-//                    int portfolioId = Integer.parseInt(args[0]);
-//                    String name = args[1];
-//                    sizes[0] = Integer.parseInt(args[2]);
-//                    sizes[1] = Integer.parseInt(args[3]);
-//                    sizes[2] = Integer.parseInt(args[4]);
-//                    args = scanner.nextLine().split(",");
-//                    User user = new User(args[0], args[1], args[2], )
-//                }
-//
-//        } catch (Exception ex) {
-//            System.out.println("Could not import Portfolio:>>" + ex.getMessage());
-//        }
-//
-//        return null;
-//    }
+    public Portfolio importPortfolio(String fileName) {
+        File file = new File("exports/" + fileName);
+        try {
+            Scanner scanner = new Scanner(file);
+            int state = 0;
+            String[] args;
+            int[] sizes = new int[2];
+
+            while (scanner.hasNextLine())
+                if (state == 0) {
+                    args = scanner.nextLine().split(",");
+                    int portfolioId = Integer.parseInt(args[0]);
+                    String name = args[1];
+                    sizes[0] = Integer.parseInt(args[2]);
+                    sizes[1] = Integer.parseInt(args[3]);
+                    sizes[2] = Integer.parseInt(args[4]);
+                    args = scanner.nextLine().split(",");
+                    User user = new User(args[0], args[1], args[2], IdGenorator.getInstance().getNewId());
+                }
+
+        } catch (Exception ex) {
+            System.out.println("Could not import Portfolio:>>" + ex.getMessage());
+        }
+
+        return null;
+    }
 }
