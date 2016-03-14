@@ -21,7 +21,6 @@ public class Portfolio {
     private ArrayList<Equity> equities;
     private int id;
     private User user;
-
     private ArrayList<Transaction> transaction_history; // complete transaction history
     private ArrayList<Account> accounts; // All account assigned to user
 
@@ -37,13 +36,13 @@ public class Portfolio {
         this.name = name;
         this.id = IdGenorator.getInstance().getNewId();
         this.user = user;
-<<<<<<< HEAD
+
         this.transaction_history = new ArrayList<>();
         this.accounts = new ArrayList<>();
         this.equities = new ArrayList<>();
-=======
+
         allPortfolios.add(this);
->>>>>>> 41dedf5089dcaf872dd0efb80b686ecbd5611043
+
     }
 
     public Portfolio(String username, String name, String password){
@@ -51,13 +50,12 @@ public class Portfolio {
         this.id = IdGenorator.getInstance().getNewId();
         this.user = new User(username, name);
         this.user.setPassword(password);
-<<<<<<< HEAD
         this.transaction_history = new ArrayList<>();
         this.accounts = new ArrayList<>();
         this.equities = new ArrayList<>();
-=======
+
         allPortfolios.add(this);
->>>>>>> 41dedf5089dcaf872dd0efb80b686ecbd5611043
+
     }
 
     public Portfolio(String fileName) {
