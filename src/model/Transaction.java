@@ -1,5 +1,7 @@
 package src.model;
 
+import src.util.IdGenorator;
+
 import java.util.ArrayList;
 //import models; // Needs to change
 
@@ -7,8 +9,8 @@ public class Transaction {
 
     public int id;
     
-    public Transaction(int id) {
-	this.id = id;
+    public Transaction() {
+	this.id = IdGenorator.getInstance().getNewId();
     }
 
     public int getId() { return this.id; }
@@ -18,7 +20,6 @@ public class Transaction {
     }
 
     public static Transaction importTransaction(String line) {
-        String[] args = line.split(",");
-        return new Transaction(Integer.parseInt(args[0]));
+        return new Transaction();
     }
 }

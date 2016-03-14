@@ -12,14 +12,12 @@ public class User {
     public String username; // username
     public String name; // first and last name
     public String password; // Might want to bit 64 encode or hash this shit
-    public Portfolio portfolio;
 
     // ctor
     public User(String username, String name) {
         this.id = IdGenorator.getInstance().getNewId();
         this.username = username;
         this.name = name;
-        this.portfolio = new Portfolio(name, IdGenorator.getInstance().getNewId(), this);
     }
 
     public String getPassword() {
@@ -34,10 +32,6 @@ public class User {
     public String getUsername() { return username; }
 
     public int getId() { return id; }
-
-    public Portfolio getPortfolio() {
-        return portfolio;
-    }
 
     public String getName() {
         return name;

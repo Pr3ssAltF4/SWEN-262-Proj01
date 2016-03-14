@@ -14,20 +14,24 @@ import src.util.IdGenorator;
 
 public class Portfolio {
     private String name;
-    private ArrayList<Equity> equities;
+    private ArrayList<Equity> equities = new ArrayList<>();
     private int id;
     private User user;
-    public ArrayList<Transaction> transaction_history; // complete transaction history
-    public ArrayList<Account> accounts; // All account assigned to user
+    public ArrayList<Transaction> transaction_history = new ArrayList<>(); // complete transaction history
+    public ArrayList<Account> accounts = new ArrayList<>(); // All account assigned to user
 
     //Portfolio constructor
-    public Portfolio(String name, int id, User user) {
+    public Portfolio(String name, User user) {
         this.name = name;
-        this.equities = new ArrayList<>();
-        this.id = id;
+        this.id = IdGenorator.getInstance().getNewId();
         this.user = user;
-        this.transaction_history = new ArrayList<>();
-        this.accounts = new ArrayList<>();
+    }
+
+    public Portfolio(String username, String name, String password){
+        this.name = name;
+        this.id = IdGenorator.getInstance().getNewId();
+        this.user = new User(username, name);
+        this.user.setPassword(password);
     }
 
 //    public Portfolio(String fileName) {
@@ -86,59 +90,63 @@ public class Portfolio {
 
     public ArrayList<Equity> getEquityByTicker(String ticker) {
         ArrayList<Equity> filtered = new ArrayList<>();
-		for (Equity e: this.equities){
-			if (e.getTicker() == ticker){
-				filtered.add(e);
-			}
-		}
+        for (Equity e : this.equities) {
+            if (e.getTicker() == ticker) {
+                filtered.add(e);
+            }
+        }
         return filtered;
     }
 
     public int getShares(String ticker) {
         int shares = 0;
-		for (Equity e: this.equities){
-			if (e.getTicker() == ticker){
-				shares += e.getNumberOfStocks();
-			}
-		}
+        for (Equity e : this.equities) {
+            if (e.getTicker() == ticker) {
+                shares += e.getNumberOfStocks();
+            }
+        }
         return shares;
     }
 
-    public void addTransaction(Transaction transaction) {transaction_history.add(transaction);}
-    //removes the transaction from the transaction history based on the id
-	public void removeTransaction(int transaction_id) {
+    public void addTransaction(Transaction transaction) {
+        transaction_history.add(transaction);
+    }
 
-		for(int x = 0; x < transaction_history.size(); x++){
-			if(transaction_history.get(x).getId() == transaction_id) {
-				transaction_history.remove(x);
-				return;
-			}
-		}
-	}
+    //removes the transaction from the transaction history based on the id
+    public void removeTransaction(int transaction_id) {
+
+        for (int x = 0; x < transaction_history.size(); x++) {
+            if (transaction_history.get(x).getId() == transaction_id) {
+                transaction_history.remove(x);
+                return;
+            }
+        }
+    }
+
     public void addAccount(String name, double balance) {
-		accounts.add(new Account(name, this.id, balance));
-	}
+        accounts.add(new Account(name, this.id, balance));
+    }
 
     private void addAccount(Account account) {
         accounts.add(account);
     }
 
-	public void removeAccount(String name) {
-		for (Account a: this.accounts){
-			if (a.getName() == name){
-				accounts.remove(a);
-			}
-		}
-	}
+    public void removeAccount(String name) {
+        for (Account a : this.accounts) {
+            if (a.getName() == name) {
+                accounts.remove(a);
+            }
+        }
+    }
 
-	//returns total cash from all accounts
-	public double evalCash(){
-		double total = 0;
-		for (Account a: this.accounts){
-			total += a.getBalance();
-		}
-		return total;
-	}
+    //returns total cash from all accounts
+    public double evalCash() {
+        double total = 0;
+        for (Account a : this.accounts) {
+            total += a.getBalance();
+        }
+        return total;
+    }
 
     /**
      * NEED TO ADD TRANSACTION
@@ -189,19 +197,19 @@ public class Portfolio {
         return canPurchase;
     }
 
-	public void depostitByname(String name, double ammount){
-		for(Account a: this.accounts){
-			if (a.getName() == name){
-				a.deposit(ammount);
-				break;
-			}
-		}
-	}
+    public void depostitByname(String name, double ammount) {
+        for (Account a : this.accounts) {
+            if (a.getName() == name) {
+                a.deposit(ammount);
+                break;
+            }
+        }
+    }
 
     /*
 Exports a portfolio and returns true if successful
  */
-    public boolean exportPortfolio() {
+    public File exportPortfolio() {
         try {
             PrintWriter writer = new PrintWriter("exports/" + name + "-" + id + ".txt", "UTF-8");
             writer.println(user.exportUser());
@@ -218,56 +226,49 @@ Exports a portfolio and returns true if successful
                 writer.println(account.exportAccount());
             }
             writer.close();
+            return new File("exports/" + name + "-" + id + ".txt");
         } catch (Exception ex) {
             System.out.println("Unable to export files:" + ex.getMessage());
-            return false;
         }
 
-        return true;
+        return null;
     }
 
-    public Portfolio importPortfolio(String fileName) {
+    public static Portfolio importPortfolio(String fileName) {
         File file = new File("exports/" + fileName);
         try {
             Scanner scanner = new Scanner(file);
-            int state = 0;
             String[] args;
             int[] sizes = new int[2];
 
-            while (scanner.hasNextLine()) {
-                if (state == 0) {
-                    //imports user and start on portfolio
-                    args = scanner.nextLine().split(",");
-                    User user = new User(args[0], args[1]);
-                    user.setPassword(args[3]);
-                    //find the number of each array
-                    args = scanner.nextLine().split(",");
-                    sizes[0] = Integer.parseInt(args[0]);
-                    sizes[1] = Integer.parseInt(args[1]);
-                    sizes[2] = Integer.parseInt(args[2]);
+            Portfolio portfolio;
+            //imports user and start on portfolio
+            args = scanner.nextLine().split(",");
+            portfolio = new Portfolio(args[0], args[1], args[2]);
+            portfolio.getUser().setPassword(args[3]);
+            //find the number of each array
+            args = scanner.nextLine().split(",");
+            sizes[0] = Integer.parseInt(args[0]);
+            sizes[1] = Integer.parseInt(args[1]);
+            sizes[2] = Integer.parseInt(args[2]);
 
-                    state = 1;
-                }
-                Portfolio portfolio = user.getPortfolio();
-                //Equities loop
-                for(int x = 0; x < sizes[0] && scanner.hasNextLine() ; x++){
-                    portfolio.addEquity(Equity.importEquity(scanner.nextLine()));
-                }
-                //Transaction loop
-                for(int x = 0; x < sizes[1] && scanner.hasNextLine() ; x++){
-                    portfolio.addTransaction(Transaction.importTransaction(scanner.nextLine()));
-                }
-                for(int x = 0; x < sizes[2] && scanner.hasNextLine() ; x++){
-                    portfolio.addAccount(Account.importAccount(scanner.nextLine()));
-                }
-
-                return portfolio;
-
+            //Equities loop
+            for (int x = 0; x < sizes[0] && scanner.hasNextLine(); x++) {
+                portfolio.addEquity(Equity.importEquity(scanner.nextLine()));
             }
+            //Transaction loop
+            for (int x = 0; x < sizes[1] && scanner.hasNextLine(); x++) {
+                portfolio.addTransaction(Transaction.importTransaction(scanner.nextLine()));
+            }
+            for (int x = 0; x < sizes[2] && scanner.hasNextLine(); x++) {
+                portfolio.addAccount(Account.importAccount(scanner.nextLine()));
+            }
+
+            return portfolio;
+
 
         } catch (Exception ex) {
             System.out.println("Could not import Portfolio:>>" + ex.getMessage());
-            return null;
         }
 
         return null;

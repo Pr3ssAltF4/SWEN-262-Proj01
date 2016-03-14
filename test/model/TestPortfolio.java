@@ -1,5 +1,8 @@
 package model;
 
+import src.model.Portfolio;
+import src.model.User;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,5 +24,8 @@ class TestPortfolio {
 
         Calendar dates = Calendar.getInstance();
         System.out.println(dates.getTime());
+
+        User user = new User("txs2025", "Tyler");
+        Portfolio.importPortfolio(user.getPortfolio().exportPortfolio().getName());
     }
 }
