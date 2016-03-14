@@ -21,5 +21,6 @@ class TestPortfolio {
 
         Calendar dates = Calendar.getInstance();
         System.out.println(dates.getTime());
+        System.out.println(dates.getTime().toString());
     }
 }

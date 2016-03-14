@@ -19,8 +19,11 @@ public class Equity{
         Date date = new Date();
         private Date dateAcquired = date;
 
-        /*
-        A constructor for the Equity class
+        /**
+         *  Equity constructor
+         * @param ticker - ticker symbol
+         * @param numberOfStocks - number of stocks
+         * @param pricePerStock - price per stock
          */
         public Equity(String ticker, int numberOfStocks, double pricePerStock) {
             this.ticker = ticker;
@@ -29,41 +32,50 @@ public class Equity{
             this.dateAcquired = new Date();
         }
 
-        /*
-        Returns the Ticker
-        */
+        /**
+         *
+         * @return returns Equity's ticker symbol
+         */
         public String getTicker() {
             return ticker;
         }
 
-        /*
-        Returns the number of a given stock
+        /**
+         *
+         * @return return number of stocks
          */
         public int getNumberOfStocks() {
             return numberOfStocks;
         }
 
-        /*
-        Set the number of stocks
+        /**
+         *
+         * @param numberOfStocks - set the number of stocks
          */
         public void setNumberOfStocks(int numberOfStocks) {
             this.numberOfStocks = numberOfStocks;
         }
 
-        /*
-        Get the price of the stock
+        /**
+         *
+         * @return return the price per stock
          */
         public double getPricePerStock() {
             return pricePerStock;
         }
 
+        /**
+         *
+         * @param pricePerStock - set price per stock
+         */
         public void setPricePerStock(double pricePerStock) {
             this.pricePerStock = pricePerStock;
         }
 
-        /*
-                Get the date aquired
-                 */
+        /**
+         *
+         * @return - return date
+         */
         public Date getDateAquired() {
             return dateAcquired;
         }

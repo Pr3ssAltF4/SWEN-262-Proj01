@@ -11,8 +11,8 @@ public class Account {
     private double balance;
     public Date dateCreated;
 
-    public Account(String name, int id, double balance) {
-        this.id = id;
+    public Account(String name, double balance) {
+        this.id = IdGenorator.getInstance().getNewId();
         this.name = name;
         this.balance = balance;
         this.dateCreated = new Date();
@@ -47,6 +47,6 @@ public class Account {
 
     public static Account importAccount(String line) {
         String[] args = line.split(",");
-        return new Account(args[1], IdGenorator.getInstance().getNewId(), Double.parseDouble(args[2]));
+        return new Account(args[1], Double.parseDouble(args[2]));
     }
 }

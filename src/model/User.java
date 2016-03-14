@@ -14,7 +14,11 @@ public class User {
     public String password; // Might want to bit 64 encode or hash this shit
     public Portfolio portfolio;
 
-    // ctor
+    /**
+     *
+     * @param username - Log in name
+     * @param name - name of the Users
+     */
     public User(String username, String name) {
         this.id = IdGenorator.getInstance().getNewId();
         this.username = username;
@@ -22,19 +26,38 @@ public class User {
         this.portfolio = new Portfolio(name, IdGenorator.getInstance().getNewId(), this);
     }
 
+    /**
+     *
+     * @return returns password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     *
+     * @param password - new password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
-    // Some method stubs
+    /**
+     *
+     * @return returns username
+     */
     public String getUsername() { return username; }
 
+    /**
+     *
+     * @return return User's id
+     */
     public int getId() { return id; }
 
+    /**
+     *
+     * @return returns the user portfolio
+     */
     public Portfolio getPortfolio() {
         return portfolio;
     }
