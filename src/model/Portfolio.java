@@ -17,8 +17,8 @@ public class Portfolio {
     private ArrayList<Equity> equities;
     private int id;
     private User user;
-    public ArrayList<Transaction> transaction_history; // complete transaction history
-    public ArrayList<Account> accounts; // All account assigned to user
+    private ArrayList<Transaction> transaction_history; // complete transaction history
+    private ArrayList<Account> accounts; // All account assigned to user
 
     /**
      *
@@ -94,6 +94,13 @@ public class Portfolio {
         equities.remove(equity);
     }
 
+    /**
+     *
+     * @return id of portfolio
+     */
+    public int getId(){
+        return id;
+    }
 	/*
     Importing links to keep around
 
@@ -140,25 +147,11 @@ public class Portfolio {
 
     /**
      *
-     * @param transaction_id - id number of transaction to remove
-     */
-	public void removeTransaction(int transaction_id) {
-
-		for(int x = 0; x < transaction_history.size(); x++){
-			if(transaction_history.get(x).getId() == transaction_id) {
-				transaction_history.remove(x);
-				return;
-			}
-		}
-	}
-
-    /**
-     *
      * @param name - name of account to add
      * @param balance - balance of account
      */
     public void addAccount(String name, double balance) {
-		accounts.add(new Account(name, balance));
+		accounts.add(new Account(name, balance, this.id));
 	}
 
     /**
@@ -198,7 +191,7 @@ public class Portfolio {
      * @param ticker  - ticker symbol for equity
      * @param shares  - amount of equity you want to purchase
      * @param price   - price per equity
-     * @param useCash -
+     * @param useCash - true if using cash to buy equity
      */
     public void buyEquity(String ticker, int shares, double price, boolean useCash) {
         if (useCash) {
@@ -219,10 +212,10 @@ public class Portfolio {
 
     /**
      *
-     * @param ticker -
-     * @param shares
-     * @param price
-     * @param toCash
+     * @param ticker - ticker symbol
+     * @param shares - number of shares to remove
+     * @param price - price of each share
+     * @param toCash - convert equity to cash
      */
     public void removeEquity(String ticker, int shares, double price, boolean toCash) {
         if (toCash) {
@@ -327,7 +320,7 @@ public class Portfolio {
                     portfolio.addTransaction(Transaction.importTransaction(scanner.nextLine()));
                 }
                 for(int x = 0; x < sizes[2] && scanner.hasNextLine() ; x++){
-                    portfolio.addAccount(Account.importAccount(scanner.nextLine()));
+                    portfolio.addAccount(Account.importAccount(scanner.nextLine(), getId()));
                 }
 
                 return portfolio;

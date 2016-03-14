@@ -80,13 +80,18 @@ public class Equity{
             return dateAcquired;
         }
 
-        /*
-        Sets the DateAcquired
+        /**
+         *
+         * @param dateAcquired - set the date of Equity
          */
         public void setDateAcquired(Date dateAcquired) {
             this.dateAcquired = dateAcquired;
         }
 
+        /**
+         * convert equity object into csv
+         * @return string for equity object
+         */
         public String exportEquity(){
             String export = "";
             export += ticker + ",";
@@ -97,7 +102,12 @@ public class Equity{
             return export;
         }
 
-        //Should be in this formate "Ticker,numberOfSticks,pricePerStock,Date"
+
+        /**
+         * reads string and convert it into an Equity object
+         * @param line - string to convert
+         * @return returns Equity object from string
+         */
         public static Equity importEquity(String line){
             String[] args = line.split(",");
             String[] date =  args[3].split(" ");

@@ -62,26 +62,18 @@ public class User {
         return portfolio;
     }
 
+    /**
+     *
+     * @return name of user
+     */
     public String getName() {
         return name;
     }
 
     /**
-     *
-     * @param cost - cost of equities
-     * @param accounts - list of cash accounts
-     * @return list of account with enough balance to buy equities
+     * convert user object into string
+     * @return string with user values
      */
-    public ArrayList<Account> canPurchase(double cost, ArrayList<Account> accounts){
-        ArrayList<Account> canPurchase = new ArrayList<>();
-        for (int i = 0; i < accounts.size(); i++){
-            if (accounts.get(i).getBalance() >= cost){
-                canPurchase.add(accounts.get(i));
-            }
-        }
-        return canPurchase;
-    }
-
     public String exportUser(){
         return "" + username + "," + name + "," +id +","+ password;
     }
