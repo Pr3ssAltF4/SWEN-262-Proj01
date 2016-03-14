@@ -9,9 +9,9 @@ import src.util.IdGenorator;
 
 public class User {
     private int id;
-    public String username; // username
-    public String name; // first and last name
-    public String password; // Might want to bit 64 encode or hash this shit
+    private String username; // username
+    private String name; // first and last name
+    private String password; // Might want to bit 64 encode or hash this shit
 
     /**
      *
@@ -19,7 +19,7 @@ public class User {
      * @param name - name of the Users
      */
     public User(String username, String name) {
-        this.id = IdGenorator.getInstance().getNewId();
+        this.id = id;
         this.username = username;
         this.name = name;
     }
@@ -52,21 +52,13 @@ public class User {
      */
     public int getId() { return id; }
 
-<<<<<<< HEAD
-    /**
-     *
-     * @return returns the user portfolio
-     */
-    public Portfolio getPortfolio() {
-        return portfolio;
-    }
+
 
     /**
      *
      * @return name of user
      */
-=======
->>>>>>> 31e79b5298a1b384a1098254cca902842eb699ab
+
     public String getName() {
         return name;
     }

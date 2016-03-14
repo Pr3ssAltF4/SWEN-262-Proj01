@@ -1,13 +1,16 @@
 package src.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Account {
 
+    static DateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
     private int id;
-    public String name;
+    private String name;
     private double balance;
-    public Date dateCreated;
+    private Date dateCreated;
 
     /**
      *
@@ -77,5 +80,15 @@ public class Account {
     public static Account importAccount(String line, int id) {
         String[] args = line.split(",");
         return new Account(args[1], Double.parseDouble(args[2]), id);
+    }
+
+    public String toString(){
+        String message = "";
+        message += "Date Created: " + dateFormat.format(this.dateCreated);
+        message += "  ID: " + this.id;
+        message += "  Name: " + this.name;
+        message += "  Balance: " + this.balance;
+
+        return message;
     }
 }

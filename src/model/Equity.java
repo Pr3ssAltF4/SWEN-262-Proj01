@@ -119,4 +119,16 @@ public class Equity{
             }
             return equity;
         }
+
+        public String toString(){
+            String message = "";
+            message += "Ticker Symbol: " + this.ticker;
+            message += "  Number of Shares: " + this.numberOfStocks;
+            message += "  Price per Share: " + this.pricePerStock;
+            return message;
+        }
+
+        public double getTotalCost(){
+            return this.numberOfStocks * this.pricePerStock;
+        }
     }
