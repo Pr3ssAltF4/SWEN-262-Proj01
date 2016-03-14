@@ -172,6 +172,25 @@ public class Portfolio {
 
     /**
      *
+     * @param transaction - Remove a transaction object from the transaction history
+     */
+    public void removeTransaction(Transaction transaction){
+        transaction_history.remove(transaction);
+    }
+
+    /**
+     * Remakes the portfolio with the current list of transactions in transaction_history
+     */
+    public void buildPortfolio(){
+        this.equities = new ArrayList<Equity>();
+        this.accounts = new ArrayList<Account>();
+        for(Transaction transaction : transaction_history){
+            transaction.prossessTransaction(this);
+        }
+    }
+
+    /**
+     *
      * @param name - name of account to add
      * @param balance - balance of account
      */
@@ -378,8 +397,8 @@ public class Portfolio {
         return transaction_history;
     }
 
-
     public String toString(){
         return this.name;
     }
+
 }
