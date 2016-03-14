@@ -13,6 +13,8 @@ import src.model.Account;
 import src.util.IdGenorator;
 
 public class Portfolio {
+    static private ArrayList<Portfolio> allPortfolios = new ArrayList<>();
+
     private String name;
     private ArrayList<Equity> equities = new ArrayList<>();
     private int id;
@@ -35,6 +37,7 @@ public class Portfolio {
         this.name = name;
         this.id = IdGenorator.getInstance().getNewId();
         this.user = user;
+        allPortfolios.add(this);
     }
 
     public Portfolio(String username, String name, String password){
@@ -42,11 +45,13 @@ public class Portfolio {
         this.id = IdGenorator.getInstance().getNewId();
         this.user = new User(username, name);
         this.user.setPassword(password);
+        allPortfolios.add(this);
     }
 
-//    public Portfolio(String fileName) {
-//        importPortfolio(fileName);
-//    }
+    public Portfolio(String fileName) {
+        importPortfolio(fileName);
+        allPortfolios.add(this);
+    }
 
     /**
      *
@@ -264,6 +269,15 @@ public class Portfolio {
 			}
 		}
 	}
+
+    /**
+     * exports all portfolios to text documents
+     * @return returns true if all were exported successfully
+     */
+    public static boolean exportAllPortfolios(){
+        for(Portfolio portfolio : allPortfolios) if(!portfolio.exportPortfolio()) return false;
+        return true;
+    }
 
     /**
      * convert portfolio to text document
