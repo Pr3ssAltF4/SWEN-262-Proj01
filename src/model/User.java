@@ -12,7 +12,6 @@ public class User {
     public String username; // username
     public String name; // first and last name
     public String password; // Might want to bit 64 encode or hash this shit
-    public Portfolio portfolio;
 
     /**
      *
@@ -23,7 +22,6 @@ public class User {
         this.id = IdGenorator.getInstance().getNewId();
         this.username = username;
         this.name = name;
-        this.portfolio = new Portfolio(name, IdGenorator.getInstance().getNewId(), this);
     }
 
     /**
@@ -54,6 +52,7 @@ public class User {
      */
     public int getId() { return id; }
 
+<<<<<<< HEAD
     /**
      *
      * @return returns the user portfolio
@@ -66,6 +65,8 @@ public class User {
      *
      * @return name of user
      */
+=======
+>>>>>>> 31e79b5298a1b384a1098254cca902842eb699ab
     public String getName() {
         return name;
     }
