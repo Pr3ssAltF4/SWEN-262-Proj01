@@ -24,8 +24,26 @@ public class PortfolioGUI extends JFrame implements ItemListener{
     static final String ACCOUNTS = "Accounts";
     static final String SIMULATIONS ="Simulations";
 
-    //need a master update button
+    //login
+    private JFrame login;
+    private JPanel loginScreen;
+    private JLabel usernameLabel;
+    private JTextField username;
+    private JLabel passwordLabel;
+    private JTextField password;
+    private JButton signIn;
+    private JButton newProfile;
 
+    //create new profile
+    private JPanel createProfile;
+    private JLabel newNameLabel;
+    private JTextField newName;
+    private JLabel newUsernameLabel;
+    private JTextField newUsername;
+    private JLabel newPasswordLabel;
+    private JTextField newPassword;
+    private JButton create;
+    private JButton backToLogin;
 
     //holds components
     private JPanel screen;
@@ -91,6 +109,27 @@ public class PortfolioGUI extends JFrame implements ItemListener{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
+        //login
+        login = new JFrame();
+        login.setVisible(false);
+        loginScreen = new JPanel();
+        usernameLabel = new JLabel("Username:");
+        username = new JTextField();
+        passwordLabel = new JLabel("Password");
+        password = new JTextField();
+        signIn = new JButton("SIGN IN");
+        newProfile = new JButton("NEW PROFILE");
+
+        //userName
+        createProfile = new JPanel();
+        newNameLabel = new JLabel("New Name:");
+        newName = new JTextField();
+        newUsernameLabel = new JLabel("New Username:");
+        newUsername = new JTextField();
+        newPasswordLabel= new JLabel("New Password:");
+        newPassword = new JTextField();
+        create = new JButton("Create");
+        backToLogin = new JButton("Back");
 
         //screen
         //make sure its set up like the tutorial
