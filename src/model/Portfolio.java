@@ -15,6 +15,8 @@ import src.util.IdGenorator;
 import javax.sound.sampled.Port;
 
 public class Portfolio {
+    static private ArrayList<Portfolio> allPortfolios = new ArrayList<>();
+
     private String name;
     private ArrayList<Equity> equities;
     private int id;
@@ -35,9 +37,13 @@ public class Portfolio {
         this.name = name;
         this.id = IdGenorator.getInstance().getNewId();
         this.user = user;
+<<<<<<< HEAD
         this.transaction_history = new ArrayList<>();
         this.accounts = new ArrayList<>();
         this.equities = new ArrayList<>();
+=======
+        allPortfolios.add(this);
+>>>>>>> 41dedf5089dcaf872dd0efb80b686ecbd5611043
     }
 
     public Portfolio(String username, String name, String password){
@@ -45,14 +51,19 @@ public class Portfolio {
         this.id = IdGenorator.getInstance().getNewId();
         this.user = new User(username, name);
         this.user.setPassword(password);
+<<<<<<< HEAD
         this.transaction_history = new ArrayList<>();
         this.accounts = new ArrayList<>();
         this.equities = new ArrayList<>();
+=======
+        allPortfolios.add(this);
+>>>>>>> 41dedf5089dcaf872dd0efb80b686ecbd5611043
     }
 
-//    public Portfolio(String fileName) {
-//        importPortfolio(fileName);
-//    }
+    public Portfolio(String fileName) {
+        importPortfolio(fileName);
+        allPortfolios.add(this);
+    }
 
     /**
      *
@@ -270,6 +281,15 @@ public class Portfolio {
 			}
 		}
 	}
+
+    /**
+     * exports all portfolios to text documents
+     * @return returns true if all were exported successfully
+     */
+    public static boolean exportAllPortfolios(){
+        for(Portfolio portfolio : allPortfolios) if(!portfolio.exportPortfolio()) return false;
+        return true;
+    }
 
     /**
      * convert portfolio to text document
