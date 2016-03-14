@@ -185,7 +185,7 @@ public class Portfolio {
         this.equities = new ArrayList<Equity>();
         this.accounts = new ArrayList<Account>();
         for(Transaction transaction : transaction_history){
-            transaction.prossessTransaction(this);
+            //transaction.prossessTransaction(this);
         }
     }
 
