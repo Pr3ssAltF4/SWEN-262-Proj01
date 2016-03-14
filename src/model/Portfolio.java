@@ -20,8 +20,13 @@ public class Portfolio {
     public ArrayList<Transaction> transaction_history = new ArrayList<>(); // complete transaction history
     public ArrayList<Account> accounts = new ArrayList<>(); // All account assigned to user
 
-    //Portfolio constructor
-    public Portfolio(String name, User user) {
+    /**
+     *
+     * @param name - name of portfolio owner
+     * @param id - unique portfolio id
+     * @param user - User associated with portfolio
+     */
+    public Portfolio(String name, int id, User user) {
         this.name = name;
         this.id = IdGenorator.getInstance().getNewId();
         this.user = user;
@@ -38,7 +43,10 @@ public class Portfolio {
 //        importPortfolio(fileName);
 //    }
 
-
+    /**
+     *
+     * @return returns users
+     */
     public User getUser() {
         return user;
     }
@@ -47,34 +55,44 @@ public class Portfolio {
         this.user = user;
     }
 
-    /*
-        Equities (aka Equity)
-         */
+    /**
+     *
+     * @return returns the list of equities in the portfolio
+     */
     public ArrayList<Equity> getEquities() {
         return equities;
     }
 
-    /*
-    Returns the name
-    */
+    /**
+     *
+     * @return return name of portfolio owner
+     */
     public String getName() {
         return name;
     }
 
-    /*
-    Adds and Equity to the Portfilio given the equity
+    /**
+     *
+     * @param ticker - ticker symbol
+     * @param shares - number of shares
+     * @param price - price per ticker symbol
      */
     public void addEquity(String ticker, int shares, double price) {
         Equity equity = new Equity(ticker, shares, price);
         equities.add(equity);
     }
 
+    /**
+     *
+     * @param equity - equity to add to portfolio
+     */
     private void addEquity(Equity equity) {
         equities.add(equity);
     }
 
-    /*
-    Removes the Equity given the Equity
+    /**
+     *
+     * @param equity - equity to remove from portfolio
      */
     public void removeEquity(Equity equity) {
         equities.remove(equity);
@@ -88,6 +106,11 @@ public class Portfolio {
 	https://docs.oracle.com/javase/tutorial/essential/io/dirs.html
 	 */
 
+    /**
+     *
+     * @param ticker ticker to search for
+     * @return list of Equity objects with matching ticker
+     */
     public ArrayList<Equity> getEquityByTicker(String ticker) {
         ArrayList<Equity> filtered = new ArrayList<>();
         for (Equity e : this.equities) {
@@ -98,6 +121,11 @@ public class Portfolio {
         return filtered;
     }
 
+    /**
+     *
+     * @param ticker ticker to search for
+     * @return number of shares in portfolio with matching ticker
+     */
     public int getShares(String ticker) {
         int shares = 0;
         for (Equity e : this.equities) {
@@ -108,48 +136,69 @@ public class Portfolio {
         return shares;
     }
 
-    public void addTransaction(Transaction transaction) {
-        transaction_history.add(transaction);
-    }
 
-    //removes the transaction from the transaction history based on the id
-    public void removeTransaction(int transaction_id) {
+    /**
+     *
+     * @param transaction - transaction object to add to list of transactions
+     */
+    public void addTransaction(Transaction transaction) {transaction_history.add(transaction);}
 
-        for (int x = 0; x < transaction_history.size(); x++) {
-            if (transaction_history.get(x).getId() == transaction_id) {
-                transaction_history.remove(x);
-                return;
-            }
-        }
-    }
+    /**
+     *
+     * @param transaction_id - id number of transaction to remove
+     */
+	public void removeTransaction(int transaction_id) {
 
+		for(int x = 0; x < transaction_history.size(); x++){
+			if(transaction_history.get(x).getId() == transaction_id) {
+				transaction_history.remove(x);
+				return;
+			}
+		}
+	}
+
+    /**
+     *
+     * @param name - name of account to add
+     * @param balance - balance of account
+     */
     public void addAccount(String name, double balance) {
-        accounts.add(new Account(name, this.id, balance));
-    }
+		accounts.add(new Account(name, balance));
+	}
 
+    /**
+     *
+     * @param account - account object to add to list of accounts
+     */
     private void addAccount(Account account) {
         accounts.add(account);
     }
 
-    public void removeAccount(String name) {
-        for (Account a : this.accounts) {
-            if (a.getName() == name) {
-                accounts.remove(a);
-            }
-        }
-    }
-
-    //returns total cash from all accounts
-    public double evalCash() {
-        double total = 0;
-        for (Account a : this.accounts) {
-            total += a.getBalance();
-        }
-        return total;
-    }
+    /**
+     *
+     * @param name - remove an account based on name
+     */
+	public void removeAccount(String name) {
+		for (Account a: this.accounts){
+			if (a.getName() == name){
+				accounts.remove(a);
+			}
+		}
+	}
 
     /**
-     * NEED TO ADD TRANSACTION
+     *
+     * @return - returns the total cash from all accounts
+     */
+	public double evalCash(){
+		double total = 0;
+		for (Account a: this.accounts){
+			total += a.getBalance();
+		}
+		return total;
+	}
+
+    /**
      *
      * @param ticker  - ticker symbol for equity
      * @param shares  - amount of equity you want to purchase
@@ -173,6 +222,13 @@ public class Portfolio {
         }
     }
 
+    /**
+     *
+     * @param ticker -
+     * @param shares
+     * @param price
+     * @param toCash
+     */
     public void removeEquity(String ticker, int shares, double price, boolean toCash) {
         if (toCash) {
             double earned = shares * price;
@@ -197,19 +253,25 @@ public class Portfolio {
         return canPurchase;
     }
 
-    public void depostitByname(String name, double ammount) {
-        for (Account a : this.accounts) {
-            if (a.getName() == name) {
-                a.deposit(ammount);
-                break;
-            }
-        }
-    }
+    /**
+     *
+     * @param name -
+     * @param ammount
+     */
+	public void depostitByname(String name, double ammount){
+		for(Account a: this.accounts){
+			if (a.getName() == name){
+				a.deposit(ammount);
+				break;
+			}
+		}
+	}
 
-    /*
-Exports a portfolio and returns true if successful
- */
-    public File exportPortfolio() {
+    /**
+     * convert portfolio to text document
+     * @return returns true if portfolio is successfully written to document
+     */
+    public boolean exportPortfolio() {
         try {
             PrintWriter writer = new PrintWriter("exports/" + name + "-" + id + ".txt", "UTF-8");
             writer.println(user.exportUser());
@@ -226,21 +288,25 @@ Exports a portfolio and returns true if successful
                 writer.println(account.exportAccount());
             }
             writer.close();
-            return new File("exports/" + name + "-" + id + ".txt");
+            return true;
         } catch (Exception ex) {
             System.out.println("Unable to export files:" + ex.getMessage());
         }
 
-        return null;
+        return false;
     }
 
-    public static Portfolio importPortfolio(String fileName) {
+    /**
+     * reads portfolio document and convert data into a portfolio object
+     * @param fileName - portfolio document to read
+     * @return returns portfolio object from document
+     */
+    public Portfolio importPortfolio(String fileName) {
         File file = new File("exports/" + fileName);
         try {
             Scanner scanner = new Scanner(file);
             String[] args;
             int[] sizes = new int[2];
-
             Portfolio portfolio;
             //imports user and start on portfolio
             args = scanner.nextLine().split(",");
@@ -265,8 +331,6 @@ Exports a portfolio and returns true if successful
             }
 
             return portfolio;
-
-
         } catch (Exception ex) {
             System.out.println("Could not import Portfolio:>>" + ex.getMessage());
         }

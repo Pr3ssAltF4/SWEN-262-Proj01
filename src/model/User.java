@@ -13,24 +13,43 @@ public class User {
     public String name; // first and last name
     public String password; // Might want to bit 64 encode or hash this shit
 
-    // ctor
+    /**
+     *
+     * @param username - Log in name
+     * @param name - name of the Users
+     */
     public User(String username, String name) {
         this.id = IdGenorator.getInstance().getNewId();
         this.username = username;
         this.name = name;
     }
 
+    /**
+     *
+     * @return returns password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     *
+     * @param password - new password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
-    // Some method stubs
+    /**
+     *
+     * @return returns username
+     */
     public String getUsername() { return username; }
 
+    /**
+     *
+     * @return return User's id
+     */
     public int getId() { return id; }
 
     public String getName() {

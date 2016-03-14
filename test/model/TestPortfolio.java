@@ -26,6 +26,6 @@ class TestPortfolio {
         System.out.println(dates.getTime());
 
         User user = new User("txs2025", "Tyler");
-        Portfolio.importPortfolio(user.getPortfolio().exportPortfolio().getName());
+//        Portfolio.importPortfolio(user.getPortfolio().exportPortfolio().getName());
     }
 }
