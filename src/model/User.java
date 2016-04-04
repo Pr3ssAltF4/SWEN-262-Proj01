@@ -1,18 +1,15 @@
 package src.model;
 
 import java.util.ArrayList;
-
-import src.model.Account; // This needs to change. Visibility and such actually matters.
-import src.model.Transaction;
-import src.model.Portfolio;
-import src.util.IdGenorator;
+import java.util.Base64;
 
 public class User {
-    private int id;
-    private String username; // username
-    private String name; // first and last name
-    private String password; // Might want to bit 64 encode or hash this shit
-
+    private int id = 0;
+    private String username = "";
+    private String name = "";
+    private String password = "";
+    
+    
     /**
      *
      * @param username - Log in name
@@ -33,11 +30,15 @@ public class User {
     }
 
     /**
-     *
+     * Should encrypt the password using a standard Base64 Java hash.
+     * Needs the entered password (when the user logs in) to be hashed and compared.
      * @param password - new password
+     * Author : Ian Taylor
      */
     public void setPassword(String password) {
-        this.password = password;
+	byte[] new_password = password.getBytes();
+	password = Base64.Encoder.encode(new_password);
+	this.password = password;
     }
 
     /**

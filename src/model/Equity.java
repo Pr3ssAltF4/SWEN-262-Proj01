@@ -1,8 +1,4 @@
 package src.model;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 // Author : Ian Taylor
 // Equity class to represent equities in FPTS.
 
