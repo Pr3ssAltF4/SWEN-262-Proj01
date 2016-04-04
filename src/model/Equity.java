@@ -3,132 +3,39 @@ package src.model;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+// Author : Ian Taylor
+// Equity class to represent equities in FPTS.
 
-    /*
-	Equity (aka Holdings)
-	 */
 public class Equity{
 
-        //Here to be used to put date to string.
-        static DateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
-        private String ticker;
-        private int numberOfStocks;
-        private double pricePerStock;
+    String name = "";
+    String ticker = "";
+    double price_per_share = 0.0;
+    String index = "";
+    String sector = ""; // Should we make this a class?
 
-
-        Date date = new Date();
-        private Date dateAcquired = date;
-
-        /**
-         *  Equity constructor
-         * @param ticker - ticker symbol
-         * @param numberOfStocks - number of stocks
-         * @param pricePerStock - price per stock
-         */
-        public Equity(String ticker, int numberOfStocks, double pricePerStock) {
-            this.ticker = ticker;
-            this.numberOfStocks = numberOfStocks;
-            this.pricePerStock = pricePerStock;
-            this.dateAcquired = new Date();
-        }
-
-        /**
-         *
-         * @return returns Equity's ticker symbol
-         */
-        public String getTicker() {
-            return ticker;
-        }
-
-        /**
-         *
-         * @return return number of stocks
-         */
-        public int getNumberOfStocks() {
-            return numberOfStocks;
-        }
-
-        /**
-         *
-         * @param numberOfStocks - set the number of stocks
-         */
-        public void setNumberOfStocks(int numberOfStocks) {
-            this.numberOfStocks = numberOfStocks;
-        }
-
-        /**
-         *
-         * @return return the price per stock
-         */
-        public double getPricePerStock() {
-            return pricePerStock;
-        }
-
-        /**
-         *
-         * @param pricePerStock - set price per stock
-         */
-        public void setPricePerStock(double pricePerStock) {
-            this.pricePerStock = pricePerStock;
-        }
-
-        /**
-         *
-         * @return - return date
-         */
-        public Date getDateAquired() {
-            return dateAcquired;
-        }
-
-        /**
-         *
-         * @param dateAcquired - set the date of Equity
-         */
-        public void setDateAcquired(Date dateAcquired) {
-            this.dateAcquired = dateAcquired;
-        }
-
-        /**
-         * convert equity object into csv
-         * @return string for equity object
-         */
-        public String exportEquity(){
-            String export = "";
-            export += ticker + ",";
-            export += numberOfStocks + ",";
-            export += pricePerStock + ",";
-            export += dateFormat.format(dateAcquired);
-
-            return export;
-        }
-
-
-        /**
-         * reads string and convert it into an Equity object
-         * @param line - string to convert
-         * @return returns Equity object from string
-         */
-        public static Equity importEquity(String line){
-            String[] args = line.split(",");
-            String[] date =  args[3].split(" ");
-            Equity equity = new Equity(args[0],Integer.parseInt(args[1]),Double.parseDouble(args[2]));
-            try {
-                equity.setDateAcquired(dateFormat.parse(args[3]));
-            }catch(Exception ex){
-                System.out.println("Could not import date:>>"+ex.getMessage());
-            }
-            return equity;
-        }
-
-        public String toString(){
-            String message = "";
-            message += "Ticker Symbol: " + this.ticker;
-            message += "  Number of Shares: " + this.numberOfStocks;
-            message += "  Price per Share: " + this.pricePerStock;
-            return message;
-        }
-
-        public double getTotalCost(){
-            return this.numberOfStocks * this.pricePerStock;
-        }
+    public Equity(String name, String ticker, double price_per_share) {
+	this.name = name;
+	this.ticker = ticker;
+	this.price_per_share = price_per_share;
     }
+
+    public String get_name() { return this.name; }
+    public String get_ticker() { return this.ticker; }
+    public double get_price() { return this.price_per_share; }
+    public String get_index() { return this.index; }
+    public String get_sector() { return this.sector; }
+
+    public void set_name(String name) { this.name = name; }
+    public void set_ticker(String ticker) { this.ticker = ticker; }
+    public void set_price(double price) { this.price_per_share = price; }
+    public void set_index(String index) { this.index = index; }
+    public void set_sector(String sector) { this.sector = sector; }
+
+    // I don't think we need anything else here...am I wrong?
+
+    // For you Tyler
+    public void import_equity() {}
+    public void export_equity() {}
+
+}
