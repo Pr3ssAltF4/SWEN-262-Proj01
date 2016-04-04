@@ -31,7 +31,11 @@ public class Equity{
     // I don't think we need anything else here...am I wrong?
 
     // For you Tyler
-    public void import_equity() {}
-    public void export_equity() {}
+    public Equity import_equity() {}
+    public String export_equity() {}
+
+    public String toString() {
+	return '"' + this.ticker + '","' + this.name + '","' + this.price_per_share + '","'  + this.index + '"';
+    }
 
 }

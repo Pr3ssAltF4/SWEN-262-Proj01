@@ -38,10 +38,19 @@ public class User {
     public void setPassword(String password) {
 	byte[] new_password = password.getBytes();
 	password = Base64.Encoder.encode(new_password);
-	String hashed_password = new String(password, StandardCharsets.UTF-8)
+	String hashed_password = new String(password, StandardCharsets.UTF-8);
 	this.password = hashed_password;
     }
 
+    // Hashes the password with the standard Java-8 Base64 library.
+    // Author : Ian Taylor
+    public String encrypt_password(String password) {
+	byte[] new_password = password.getBytes();
+	password = Base64.Encoder.encode(new_password);
+	String hashed_password = new String(password, StandardCharsets.UTF-8);
+	return hashed_password;
+    }
+    
     /**
      *
      * @return returns username
@@ -72,4 +81,6 @@ public class User {
     public String exportUser(){
         return "" + username + "," + name + "," +id +","+ password;
     }
+
+    public User importUser() { return null; }
 }
