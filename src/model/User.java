@@ -1,7 +1,7 @@
 package src.model;
 
 import java.util.ArrayList;
-import java.util.Base64;
+import java.util.Base64; // Used to encode the password.
 
 public class User {
     private int id = 0;
@@ -38,7 +38,8 @@ public class User {
     public void setPassword(String password) {
 	byte[] new_password = password.getBytes();
 	password = Base64.Encoder.encode(new_password);
-	this.password = password;
+	String hashed_password = new String(password, StandardCharsets.UTF-8)
+	this.password = hashed_password;
     }
 
     /**
