@@ -83,11 +83,11 @@ public class Portfolio {
 
 
     
-    public boolean buyEquity(String ticker, int number) {
+    public boolean buyEquity(String ticker, int number, Account account) {
 	return false;
 	// TALK TO ERIC (how to create equity that works)
     }
-    public boolean sellEquity(String ticker, int number) {
+    public boolean sellEquity(String ticker, int number, Account account) {
 	return false;
 	// TALK TO ERIC
     }
