@@ -3,6 +3,7 @@ package src.model;
 // Author : Ian Taylor
 
 import src.util.IdGenorator;
+import java.util.Base64;
 
 public class User {
 
@@ -10,9 +11,10 @@ public class User {
     private String password = "";
     private int id = IdGenorator.getInstace().getNewId();
 
+    // Once entered the password is always encoded.
     public User(String username, String password) {
 	this.username = username;
-	this.password = 0 // base 64 encoded password;
+	this.password = Base64.getEncoder().encodeToString(password.getBytes("utf-8"));
     }
 
     public String getUsername() { return username; }
