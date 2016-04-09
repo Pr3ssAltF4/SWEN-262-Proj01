@@ -40,28 +40,104 @@ public class Portfolio {
 
     // (for both below) returns empty string iff the transaction was undone successfully.
     public String undoTransaction() {
-	return ""
+	return "";
     }
     public String performTransaction() {
-	return ""
+	return "";
     }
 
-    public void removeWatchedEquity() {}
-    public void addWatchedEquity() {}
+    // Searches for the equity by ticker symbol. Then removes it from watched by either setting it to false
+    // and/or removing it from the list of equities completely. 
+    public boolean removeWatchedEquity(String ticker) {
+	for(Equity equity : this.equities) {
+	    if(equity.getTicker() == ticker && equity.isWatched == true) {
+		equity.isWatched = false;
+		if(equity.getOwned() == 0) {
+		    this.equities.remove(equity);
+		}
+		return true;
+	    }
+	} 
+	return false;
+    }
+    // sets a new equity's isWatched to true and creates it if necessary.
+    public boolean addWatchedEquity(String ticker) {
+	for(Equity equity : this.equities) {
+	    if(equity.getTicker() == ticker) {
+		equity.isWatched = true;
+		return true;
+	    }
+	}
+        if(Woolies.getTickerInfo(ticker) != null) {
+	    Equity newEquity = new Equity(ticker, 0, 0); // NEED TO FIGURE OUT HOW and when to update the numbers...
+	    // should update by itself though...
+	    equities.add(newEquity);
+	    newEquity.isWatched = true;
+	    return true;
+	}
+	return false;
+    }
 
-    public void buyEquity() {}
-    public void sellEquity() {}
+    public boolean buyEquity(String ticker, int number) {
+	return false;
+	// TALK TO ERIC (how to create equity that works)
+    }
+    public boolean sellEquity(String ticker, int number) {
+	return false;
+	// TALK TO ERIC
+    }
 
-    public void depositInAccount() {}
-    public void withdrawFromAccount() {}
+    // Deposits money in a specified account.
+    public boolean depositInAccount(String name, double amount) {
+	for(Account account : this.accounts) {
+	    if(account.getName() == name) {
+		account.deposit(amount);
+		return true;
+	    }
+	}
+	return false;
+    }
+    // Withdraws money from a specified account.
+    public void withdrawFromAccount(String name, double amount) {
+	for(Account account : this.accounts) {
+	    if(account.getName() == name) {
+		int check = account.withdraw(amount);
+		if(check == -1)
+		    return false;
+		else
+		    return true;
+	    }
+	}
+	return false;
+    }
 
-    public void simulateMarket() {}
-
+    // HOW DOES THIS WORK!!!???
+    public ArrayList<Equity> simulateMarket(int choice) {
+	if(choice == 1) {
+	    return simulated;
+	} else if(choice == 2) {
+	    return simulated;
+	} else if(choice == 3) {
+	    return simulated;
+	}
+	return null;
+    }
+    
     // These are done dead last.
     public Portfolio importPortfolio() {}
     public String exportPortfolio() {}
 
-    public void addAccount() {}
-    public void removeAccount() {}
+    public void addAccount(String name, double balance) {
+	this.accounts.add(new Account(name, balance));
+    }
+    public boolean removeAccount(String name) {
+	for(Account account : this.accounts) {
+	    if(account.getName() == name) {
+		accounts.remove(account);
+		return true;
+	    }
+	}
+	return false;
+    }
     
 }

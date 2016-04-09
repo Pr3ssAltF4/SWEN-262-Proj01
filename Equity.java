@@ -18,8 +18,8 @@ public class Equity{
         private double pointHigh;
         private double pointLow;
         private String sector;
+        public boolean isWatched = false;
         private Date dateAcquired = new Date();
-
 
 
         /**
@@ -161,7 +161,8 @@ public class Equity{
                 System.out.println(e.getMessage());
             }finally {
                 dateAcquired = new Date();
-            }
+
+           }
         }
 
     }
