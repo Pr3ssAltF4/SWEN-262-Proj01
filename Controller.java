@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Controller {
 
 	private LoginFrame lg;
-
-        public Controller(){
+	
+	public Controller(){
 		lg = new LoginFrame();
 		lg.setVisible(true);
 	}
@@ -36,7 +36,7 @@ public class Controller {
 		
 	}
 	
-	public void updateEquity(String ticker, int numberOfStocks, double pricePerStock){
+	public void updateEquity(Equity equity, String ticker, int numberOfStocks, double pricePerStock){
 		
 	}
 	
@@ -48,7 +48,11 @@ public class Controller {
 		
 	}
 	
-	public void newTransaction(){
+	public void newAccountTransaction(Equity equity, int numberOfStock){
+		
+	}
+	
+	public void newEquityTransaction(Account account, double amount){
 		
 	}
 	

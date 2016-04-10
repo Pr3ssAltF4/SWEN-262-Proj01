@@ -57,8 +57,16 @@ public class PortfolioGUI extends JFrame implements ItemListener{
 	private JButton searchButton;
 	
 	private JFrame eAdd;
-	
 	private JFrame eUpdate;
+	private JPanel eFields;
+	private JLabel tickerLabel;
+	private JTextField tickerField;
+	private JLabel stockNumberLabel;
+	private JTextField stockNumberField;
+	private JLabel ppsLabel;
+	private JTextField ppsField;
+	private JButton ae;
+	private JButton close;
 
 	//transactions
 	private JPanel transactions;
@@ -69,6 +77,17 @@ public class PortfolioGUI extends JFrame implements ItemListener{
 	private JButton undoTransaction;
 	
 	private JFrame tAdd;
+	private JPanel tFields;
+	private JRadioButton AccountTransaction;
+	private JRadioButton EquityTransaction;
+	private ButtonGroup TransButtons;
+	private JList<Account> transAccounts;
+	private JList<Equity> transEquities;
+	private JScrollPane transaScroll;
+	private JScrollPane transeScroll;
+	private JRadioButton withdraw;
+	private JRadioButton deposit;
+	
 	
 	//account
 	private JPanel accounts;
@@ -97,7 +116,9 @@ public class PortfolioGUI extends JFrame implements ItemListener{
 	 * three sims: no-growth-market, bear, bull
 	 */
 	private JPanel simulation;
-	private JList<Portfolio> simPortfolios;
+	private JPanel tiPanel;
+	private JPanel rtPanel;
+	private JScrollPane simScroll;
 	private Vector<String> simText;
 	private JList<String> simResults;
 	private JPanel simSetup;
@@ -112,6 +133,12 @@ public class PortfolioGUI extends JFrame implements ItemListener{
 	private JRadioButton runStrightThrough;
 	private JButton runSimulation;
 	private JButton resetSim;
+	private JLabel numStepsLabel;
+	private JTextField numStepsText;
+	private JLabel pricePerStockLabel;
+	private JTextField pricePerStockText;
+	private JLabel percentChangeLabel;
+	private JTextField percentChangeText;
 	
 	//master button panel
 	//import and export buttons
@@ -203,7 +230,9 @@ public class PortfolioGUI extends JFrame implements ItemListener{
 		
 		eAdd = new JFrame();
 		eAdd.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		eAdd.setSize(300, 200);
+		eAdd.setSize(500, 500);
+		eAdd.setLayout(new GridLayout());
+		
 		eAdd.setVisible(false);
 		
 		eUpdate = new JFrame();
@@ -306,22 +335,59 @@ public class PortfolioGUI extends JFrame implements ItemListener{
 		screen.add(accounts, ACCOUNTS);
 
 		//simulation
-		//work on tomorrow************
 		simulation = new JPanel();
+		simulation.setLayout(new BorderLayout());
 		simText = new Vector<String>();
 		simResults = new JList<>(simText);
+		simScroll = new JScrollPane();
+		simScroll.add(simResults);
+		simulation.add(simScroll, BorderLayout.CENTER);
 		simSetup = new JPanel();
-		ti = new JLabel("Time Interval");
+		simSetup.setLayout(new GridLayout(6,2));
+		ti = new JLabel("Time Interval: ");
+		simSetup.add(ti);
 		timeInterval = new ButtonGroup();
 		day = new JRadioButton("Day");
 		month = new JRadioButton("Month");
 		year = new JRadioButton("Year");
-		rt = new JLabel("Run Time");
+		timeInterval.add(day);
+		timeInterval.add(month);
+		timeInterval.add(year);
+		tiPanel = new JPanel();
+		tiPanel.setLayout(new GridLayout(3,1));
+		tiPanel.add(day);
+		tiPanel.add(month);
+		tiPanel.add(year);
+		simSetup.add(tiPanel);
+		rt = new JLabel("Run Time: ");
+		simSetup.add(rt);
 		runTime = new ButtonGroup();
 		stepByStep = new JRadioButton("Step-By-Step");
 		runStrightThrough = new JRadioButton("Run Straight Through");
+		runTime.add(stepByStep);
+		runTime.add(runStrightThrough);
+		rtPanel = new JPanel();
+		rtPanel.setLayout(new GridLayout(2,1));
+		rtPanel.add(stepByStep);
+		rtPanel.add(runStrightThrough);
+		simSetup.add(rtPanel);		
+		numStepsLabel = new JLabel("Number of Steps:");
+		simSetup.add(numStepsLabel);
+		numStepsText = new JTextField();
+		simSetup.add(numStepsText);
+		pricePerStockLabel = new JLabel("Price per Stock:");
+		simSetup.add(pricePerStockLabel);
+		pricePerStockText = new JTextField();
+		simSetup.add(pricePerStockText);
+		percentChangeLabel = new JLabel("Percent Change:");
+		simSetup.add(percentChangeLabel);
+		percentChangeText = new JTextField();
+		simSetup.add(percentChangeText);		
 		runSimulation = new JButton("Run");
 		resetSim = new JButton("Reset");
+		simSetup.add(runSimulation);
+		simSetup.add(resetSim);
+		simulation.add(simSetup, BorderLayout.EAST);
 		screen.add(simulation, SIMULATIONS);
 
 		//buttons
