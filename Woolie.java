@@ -11,16 +11,10 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class Woolie {
-    public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
-
-
-        System.out.println(inMarket("FINANCE"));
-
-    }
-
     /**
      *
      * @param symbol Ticker Symbol
@@ -29,7 +23,7 @@ public class Woolie {
      * @throws ParserConfigurationException
      * @throws SAXException
      */
-    public static Document retrieveXML(String symbol) throws IOException, ParserConfigurationException, SAXException{
+    public Document retrieveXML(String symbol) throws IOException, ParserConfigurationException, SAXException{
         String front = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%22";
         String back = "%22)&env=store://datatables.org/alltableswithkeys";
         String fullUrl = front + symbol + back;
@@ -66,22 +60,21 @@ public class Woolie {
         return doc;
     }
 
-    /*
-    public static ArrayList<String> parseCSV(String path) throws IOException{
-        ArrayList<String> list = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader(path));
-        String line;
 
-        while((line = reader.readLine()) != null){
-            Pattern pattern = Pattern.compile("(\"[^\"]*\")");
-            Matcher matcher = pattern.matcher(line);
-            if (matcher.find()){
-                list.add(matcher.group(0));
-            }
+    /**
+     *
+     * @param line line from csv file
+     * @return list with string values from line
+     * @throws IOException
+     */
+    public ArrayList<String> parseLine(String line) throws IOException{
+        String[] split = line.split("\",\"");
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(split));
+        for (int i = 0; i < list.size(); i++){
+            list.set(i, list.get(i).replace("\"", ""));
         }
-        System.out.println(list);
         return list;
-    } */
+    }
 
     /**
      *
@@ -91,7 +84,7 @@ public class Woolie {
      * @throws SAXException
      * @throws IOException
      */
-    public static Double getPrice(String symbol) throws ParserConfigurationException, SAXException, IOException {
+    public Double getPrice(String symbol) throws ParserConfigurationException, SAXException, IOException {
         Document d = retrieveXML(symbol);
 
         Double price = Double.parseDouble(d.getElementsByTagName("LastTradePriceOnly").item(0).getTextContent());
@@ -105,18 +98,18 @@ public class Woolie {
      * @return a list of all equities in the specfied market
      * @throws IOException
      */
-    public static ArrayList<String> inMarket(String market) throws IOException {
-        ArrayList<String> inMarket = new ArrayList<>();
+    public ArrayList<ArrayList> inMarket(String market) throws IOException {
+        ArrayList<ArrayList> inMarket = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader("src/equities.csv"));
         String line;
-
+        ArrayList<String> list;
         while((line = reader.readLine()) != null){
-            String m = line.split(",")[line.split(",").length-1];
-            m = m.replace("\"", "");
-            if (m.equals(market)){
-                inMarket.add(line);
+            list = parseLine(line);
+            if (list.contains(market)) {
+                inMarket.add(list);
             }
         }
+        reader.close();
         return inMarket;
     }
 
@@ -126,19 +119,29 @@ public class Woolie {
      * @return The market for the ticker symbol or null if none is found
      * @throws IOException
      */
-    public static String getMarket(String symbol) throws IOException {
-        ArrayList<String> inMarket = new ArrayList<>();
+    public ArrayList<String> getMarket(String symbol) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader("src/equities.csv"));
         String line;
-
+        ArrayList<String> list;
         while((line = reader.readLine()) != null){
-            String s = line.split(",")[0];
-            String m = line.split(",")[line.split(",").length-1];
-            if (s == symbol){
-                return m;
+            list = parseLine(line);
+            if (list.get(0) == symbol){
+                ArrayList<String> market = new ArrayList<>();
+                switch (list.size()){
+                    case 4:
+                        market.add(list.get(3));
+                        break;
+                    case 5:
+                        market.add(list.get(3));
+                        market.add(list.get(4));
+                        break;
+                }
+                reader.close();
+                return market;
             }
 
         }
+        reader.close();
         return null;
     }
 
@@ -148,17 +151,36 @@ public class Woolie {
      * @return Information on the specified Ticker symbol from csv file
      * @throws IOException
      */
-    public static String getTickerInfo(String symbol) throws IOException {
+    public ArrayList<String> getInfoByTicker(String symbol) throws IOException {
         ArrayList<String> inMarket = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader("src/equities.csv"));
         String line;
-
+        ArrayList<String> list;
         while((line = reader.readLine()) != null){
-            String s = line.split(",")[0];
-            if (s == symbol){
-                return line;
+            list = parseLine(line);
+
+            if (list.get(0) == symbol){
+                reader.close();
+                return list;
             }
 
+        }
+        reader.close();
+        return null;
+    }
+
+    public ArrayList<String> getInfoByName(String name) throws IOException {
+        ArrayList<String> inMarket = new ArrayList<>();
+        BufferedReader reader = new BufferedReader(new FileReader("src/equities.csv"));
+        String line;
+        ArrayList<String> list;
+
+        while((line = reader.readLine()) != null){
+            list = parseLine(line);
+            if (list.get(1) == name){
+                reader.close();
+                return list;
+            }
         }
         return null;
     }
