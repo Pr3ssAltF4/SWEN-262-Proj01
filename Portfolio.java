@@ -105,7 +105,7 @@ public class Portfolio {
 	return false;
     }
     // Withdraws money from a specified account.
-    public void withdrawFromAccount(String name, double amount) {
+    public boolean withdrawFromAccount(String name, double amount) {
 	for(Account account : this.accounts) {
 	    if(account.getName() == name) {
 		int check = account.withdraw(amount);

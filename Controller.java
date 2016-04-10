@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Controller {
 
 	private LoginFrame lg;
-	
-	public Controller(){
+
+        public Controller(){
 		lg = new LoginFrame();
 		lg.setVisible(true);
 	}
