@@ -1,6 +1,5 @@
 package src;
 // Author : Tyler Shingler, Ian Taylor
-import src.util.IdGenorator;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

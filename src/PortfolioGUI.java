@@ -1,9 +1,10 @@
-package src.model;
+package src;
 
 import javax.swing.*;
 import javax.swing.event.*;
 
-import src.Trans.*;
+import Trans.*;
+import Equity;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -55,7 +56,7 @@ public class PortfolioGUI extends JFrame implements ItemListener{
 	private JButton removeEquity;
 	private JButton updateEquity;
 	private JTextField searchEquities;
-	private Vector<Equity> searchList;
+        private Vector<Equity> searchList;
 	private JLabel search;
 	private JPanel eSearch;
 	private JButton searchButton;

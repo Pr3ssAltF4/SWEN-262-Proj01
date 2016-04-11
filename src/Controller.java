@@ -2,7 +2,7 @@ package src;
 
 import java.util.ArrayList;
 
-import src.model.Trans.Transaction;
+import Trans.*;
 
 public class Controller {
 

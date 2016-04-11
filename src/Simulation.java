@@ -1,7 +1,7 @@
 package src;
 
 
-import src.model.Equity;
+import src.Equity;
 
 import java.util.ArrayList;
 

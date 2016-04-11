@@ -3,7 +3,6 @@ package src;
 // Author: Ian Taylor
 
 import java.util.Date;
-import src.util.IdGenorator;
 
 public class Portfolio {
 

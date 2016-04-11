@@ -1,7 +1,5 @@
 package src.Trans;
 
-import src.util.IdGenorator;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,7 +15,7 @@ public class Transaction {
     private Transaction branch = null;
 
 
-
+    public Transaction() {}
 
     /**
      * The acceptance of a visitor used in the visitor pattern
