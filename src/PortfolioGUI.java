@@ -3,7 +3,7 @@ package src.model;
 import javax.swing.*;
 import javax.swing.event.*;
 
-import src.model.Trans.Transaction;
+import src.Trans.*;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;

@@ -133,8 +133,6 @@ public class Portfolio {
     }
 
 
-    
-    // HOW DOES THIS WORK!!!???
     public ArrayList<Equity> simulateMarket(int choice) {
 	if(choice == 1) {
 	    return simulated;
