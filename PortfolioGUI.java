@@ -7,6 +7,7 @@ import src.model.Trans.Transaction;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
@@ -202,6 +203,11 @@ public class PortfolioGUI extends JFrame implements ItemListener{
 	private JScrollPane searchEquitiesPane;
 	private JLabel simTypeLabel;
 	private JTextField simTypeField;
+	private JFrame timerFrame;
+	private JPanel timerPanel;
+	private JLabel setTimeLabel;
+	private JTextField setTimeField;
+	private JButton timerButton;
 	
 
 	public PortfolioGUI(Portfolio p){
@@ -849,7 +855,7 @@ public class PortfolioGUI extends JFrame implements ItemListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				controller.update();
 				
 			}
 			
@@ -889,15 +895,39 @@ public class PortfolioGUI extends JFrame implements ItemListener{
 			
 		});
 		timer = new JButton("TIMER");
-		timer.addActionListener(new ActionListener(){
+		timerFrame = new JFrame();
+		timerFrame.setLayout(new BorderLayout());
+		timerFrame.setVisible(false);
+		timerFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		timerFrame.setSize(300, 200);
+		timerPanel = new JPanel();
+		timerPanel.setLayout(new BorderLayout());
+		setTimeLabel = new JLabel("Set Timer: ");
+		setTimeField = new JTextField();
+		timerPanel.add(setTimeLabel, BorderLayout.WEST);
+		timerPanel.add(setTimeField, BorderLayout.CENTER);
+		timerButton = new JButton("Set Timer");
+		timerButton.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//controller.YahooTimer(timeInterval);
+				controller.YahooTimer(Integer.parseInt(setTimeField.getText()));
+				equities.setListData(new Vector<Equity>(p.getEquities()));
 				
 			}
 			
 		});
+		timerFrame.add(timerPanel, BorderLayout.CENTER);
+		timerFrame.add(timerButton, BorderLayout.SOUTH);
+		timer.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				timerFrame.setVisible(true);
+			}
+			
+		});
+		
 		buttons.add(update);
 		buttons.add(logout);
 		buttons.add(imp);
