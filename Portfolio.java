@@ -71,7 +71,7 @@ public class Portfolio {
 		return true;
 	    }
 	}
-        if(Woolies.getTickerInfo(ticker) != null) {
+        if(Woolie.getTickerInfo(ticker) != null) {
 	    Equity newEquity = new Equity(ticker, 0, 0); // NEED TO FIGURE OUT HOW and when to update the numbers...
 	    // should update by itself though...
 	    equities.add(newEquity);
@@ -83,13 +83,27 @@ public class Portfolio {
 
 
     
-    public boolean buyEquity(String ticker, int number, Account account) {
-	return false;
-	// TALK TO ERIC (how to create equity that works)
+    public boolean buyEquity(Equity equity, int number, Account account) {
+	try {
+	    BuyEquityCommand buy = new BuyEquityCommand(account, equity, number, this.history);
+	    buy.execute();
+	    this.equities.add(equity);
+	} catch (Exception e) {
+	    return false;
+	}
+	return true;
     }
-    public boolean sellEquity(String ticker, int number, Account account) {
-	return false;
-	// TALK TO ERIC
+    public boolean sellEquity(Equity equity, int number, Account account) {
+	try {
+	    SellEquityCommand sell = new SellEquityCommand(account, equity, number, this.history);
+	    sell.execute();
+	    if(!equity.isWatched) {
+		this.equities.remove(equity);
+	    }
+	} catch(Exception e) {
+	    return false;
+	}
+	return true;
     }
 
 
