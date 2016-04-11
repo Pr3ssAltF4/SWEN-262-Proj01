@@ -1,4 +1,4 @@
-package src.model.Trans.Commands;
+package src.Trans.Commands;
 
 import src.model.Account;
 import src.model.Equity;

@@ -1,4 +1,4 @@
-package src.model.Trans.Commands;
+package src.Trans.Commands;
 
 /**
  * An interface used to regulare what a Command need to have as methods

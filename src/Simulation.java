@@ -1,4 +1,4 @@
-package src.model.sim;
+package src;
 
 
 import src.model.Equity;

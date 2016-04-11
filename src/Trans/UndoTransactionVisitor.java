@@ -1,4 +1,4 @@
-package src.model.Trans;
+package src.Trans;
 
 public class UndoTransactionVisitor implements TransactionVisitor {
 

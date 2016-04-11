@@ -1,4 +1,4 @@
-package src.model;
+package src;
 
 public class IdGenorator {
     private static IdGenorator instance = null;

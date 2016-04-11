@@ -1,4 +1,4 @@
-package src.model.sim;
+package src;
 
 public class Bull extends Simulation {
 

@@ -1,4 +1,4 @@
-package src.model;
+package src;
 // Author : Tyler Shingler, Ian Taylor
 import src.util.IdGenorator;
 
