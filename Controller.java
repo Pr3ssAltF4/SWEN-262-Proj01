@@ -2,6 +2,8 @@ package src.model;
 
 import java.util.ArrayList;
 
+import src.model.Trans.Transaction;
+
 public class Controller {
 
 	private LoginFrame lg;
@@ -32,7 +34,7 @@ public class Controller {
 		
 	}
 	
-	public void removeEquity(){
+	public void removeEquity(Equity e){
 		
 	}
 	
@@ -40,7 +42,7 @@ public class Controller {
 		
 	}
 	
-	public void YahooTimer(){
+	public void YahooTimer(int timeInterval){
 		
 	}
 	
@@ -48,19 +50,19 @@ public class Controller {
 		
 	}
 	
-	public void newAccountTransaction(Equity equity, int numberOfStock){
+	public void newEquityTransaction(Equity equity, int numberOfStock){
 		
 	}
 	
-	public void newEquityTransaction(Account account, double amount){
+	public void newAccountTransaction(String transType, Account account, double amount){
 		
 	}
 	
-	public void undoTransaction(){
+	public void undoTransaction(Transaction t){
 		
 	}
 	
-	public void redoTransaction(){
+	public void redoTransaction(Transaction t){
 		
 	}
 	
@@ -68,7 +70,7 @@ public class Controller {
 		
 	}
 	
-	public void removeAccount(){
+	public void removeAccount(Account a){
 		
 	}
 	
@@ -76,25 +78,17 @@ public class Controller {
 		
 	}
 	
-	public void runSim(int steps, char stepSize, double pricePerStock, double percentChange){
-		
+	public double runSim(String simType, int steps, char stepSize, double pricePerStock, double percentChange){
+		return 0;
 	}
 	
 	public void resetSim(){
 		
 	}
 	
-	public void signIn(String username, String password){
-		
-	}
-	
-	public void createPortfolio(String username, String name, String password){
-		
-	}
-	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		LoginFrame lg = new LoginFrame();
+		lg.setVisible(true);
 	}
 
 }

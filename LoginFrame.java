@@ -14,6 +14,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Vector;
@@ -27,6 +28,7 @@ public class LoginFrame extends JFrame{
 	private String name;
 	private String uName;
 	private String pWord;
+	private User u;
 	
 	//login
 	//private JFrame login;
@@ -102,12 +104,19 @@ public class LoginFrame extends JFrame{
 				
 				uName = username.getText();
 				pWord = password.getText();
+				User u = null;
+				try {
+					u = new User(uName, pWord);
+				} catch (UnsupportedEncodingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				System.out.println(uName);
 				for(int i = 0; i < portfolios.size(); i++){
 					System.out.println("checking list item #" + i);
-					if(uName.equals(portfolios.get(i).getUser().getUsername())){
+					if(u.getUsername().equals(portfolios.get(i).getUser().getUsername())){
 						System.out.println("username correct");
-						if(pWord.equals(portfolios.get(i).getUser().getPassword())){
+						if(u.getPassword().equals(portfolios.get(i).getUser().getPassword())){
 							System.out.println("password correct");
 							System.out.println("found it");
 							p = portfolios.get(i);
@@ -176,11 +185,17 @@ public class LoginFrame extends JFrame{
 				uName = newUsername.getText();
 				pWord = newPassword.getText();
 				
-				p = new Portfolio(uName, name, pWord);
+				try {
+					u = new User(uName, pWord);
+				} catch (UnsupportedEncodingException e1) {
+					e1.printStackTrace();
+				}
+				
+				p = new Portfolio(u, uName);
 				portfolios.add(p);
 				
 				for(int i = 0; i < portfolios.size(); i++){
-					System.out.println(portfolios.get(i).getName());
+					System.out.println(portfolios.get(i).toString());
 					System.out.println(portfolios.get(i).getUser().getUsername());
 				}
 				
@@ -206,6 +221,12 @@ public class LoginFrame extends JFrame{
 		newUser.setVisible(false);
 
 	}
+	
+	public static void main(String[] args) {
+		LoginFrame lg = new LoginFrame();
+		lg.setVisible(true);
+	}
+
 	
 	public void setPortfolios(ArrayList<Portfolio> portfolios){
 		this.portfolios = portfolios;
