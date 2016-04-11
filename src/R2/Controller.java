@@ -1,8 +1,6 @@
-package src;
+package R2;
 
-import java.util.ArrayList;
-
-import Trans.*;
+import R2.Trans.Transaction;
 
 public class Controller {
 

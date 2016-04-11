@@ -1,4 +1,4 @@
-package src;
+package R2;
 
 public class IdGenorator {
     private static IdGenorator instance = null;

@@ -1,7 +1,13 @@
-package src;
+package R2;
 
 // Author: Ian Taylor
 
+import R2.Trans.Commands.BuyEquityCommand;
+import R2.Trans.Commands.SellEquityCommand;
+import R2.Trans.Transaction;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Portfolio {
@@ -23,8 +29,8 @@ public class Portfolio {
     
     public int getId() { return this.id; }
     public User getUser() { return this.user; }
-    public Transaction getTransaction() { return this.transaction; }
-    public Date getDate() { return this.date;  }
+    public Transaction getTransaction() { return this.history; }
+    public Date getDate() { return this.dateCreated;  }
     public ArrayList<Equity> getEquities() { return this.equities; }
     public ArrayList<Account> getAccounts() { return this.accounts; }
 
@@ -63,14 +69,14 @@ public class Portfolio {
     }
 
     // sets a new equity's isWatched to true and creates it if necessary.
-    public boolean addWatchedEquity(String ticker) {
+    public boolean addWatchedEquity(String ticker) throws IOException {
 	for(Equity equity : this.equities) {
 	    if(equity.getTicker() == ticker) {
 		equity.isWatched = true;
 		return true;
 	    }
 	}
-        if(Woolie.getTickerInfo(ticker) != null) {
+        if(Woolie.getInfoByTicker(ticker) != null) {
 	    Equity newEquity = new Equity(ticker, 0, 0); // NEED TO FIGURE OUT HOW and when to update the numbers...
 	    // should update by itself though...
 	    equities.add(newEquity);
@@ -121,7 +127,7 @@ public class Portfolio {
     public boolean withdrawFromAccount(String name, double amount) {
 	for(Account account : this.accounts) {
 	    if(account.getName() == name) {
-		int check = account.withdraw(amount);
+		double check = account.withdraw(amount);
 		if(check == -1)
 		    return false;
 		else
@@ -131,7 +137,7 @@ public class Portfolio {
 	return false;
     }
 
-
+	/*
     public ArrayList<Equity> simulateMarket(int choice) {
 	if(choice == 1) {
 	    return simulated;
@@ -142,12 +148,12 @@ public class Portfolio {
 	}
 	return null;
     }
-
+	*/
 
     
     // These are done dead last.
-    public Portfolio importPortfolio() {}
-    public String exportPortfolio() {}
+    public Portfolio importPortfolio() {return null;}
+    public String exportPortfolio() {return null;}
 
 
     // Adds an account to accounts.
